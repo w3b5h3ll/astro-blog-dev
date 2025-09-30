@@ -1,0 +1,39 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter } = Astro.props;
+const { headings } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title}>
+    <main>
+        <!-- <meta charset='utf-8' /> -->
+        <!-- <h1>{frontmatter.title}</h1> -->
+        <p>Author: {frontmatter.author}</p>
+
+        <div class='table-of-contents'>
+            <h2>TOC</h2>
+            <ul>
+                {
+                    headings.map((heading: any) => (
+                        <li class={`depth-${heading.depth}`}>
+                            <a href={`#${heading.slug}`}>{heading.text}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+        <slot class='content-wrapper' />
+    </main>
+</BaseLayout>
+<style>
+    /* 你可以根据 depth 给不同层级的标题添加缩进 */
+    .depth-2 {
+        margin-left: 2em;
+    }
+    .depth-3 {
+        margin-left: 4em;
+    }
+    .depth-4 {
+        margin-left: 6em;
+    }
+</style>
