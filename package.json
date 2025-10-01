@@ -11,6 +11,9 @@
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
     "@astrojs/rss": "^4.0.12",
+    "@fontsource-variable/noto-sans-sc": "^5.2.9",
+    "@fontsource-variable/open-sans": "^5.2.7",
+    "@fontsource/fira-mono": "^5.2.7",
     "astro": "^5.14.1",
     "preact": "^10.27.2"
   }

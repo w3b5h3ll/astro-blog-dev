@@ -2,38 +2,163 @@
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 const { headings } = Astro.props;
+
+// 创建一个格式化后的日期
+const postDate = new Date(frontmatter.pubDate);
+const formattedDate = postDate.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-    <main>
-        <!-- <meta charset='utf-8' /> -->
-        <!-- <h1>{frontmatter.title}</h1> -->
-        <p>Author: {frontmatter.author}</p>
+    <div class='post-layout-grid'>
+        <header class='post-header'>
+            <h1>{frontmatter.title}</h1>
+            <div class='post-meta'>
+                <span>Author: {frontmatter.author}</span>
+                <time datetime={postDate.toISOString()}
+                    >Publish: {formattedDate}</time
+                >
+            </div>
+        </header>
 
-        <div class='table-of-contents'>
-            <h2>TOC</h2>
-            <ul>
-                {
-                    headings.map((heading: any) => (
-                        <li class={`depth-${heading.depth}`}>
-                            <a href={`#${heading.slug}`}>{heading.text}</a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-        <slot class='content-wrapper' />
-    </main>
+        <article class='post-content'>
+            <slot />
+        </article>
+
+        <aside class='post-toc'>
+            <div class='toc-wrapper'>
+                <h3>目录</h3>
+                <ul>
+                    {
+                        headings
+                            .filter(
+                                (heading: any) =>
+                                    heading.depth > 1 && heading.depth < 4
+                            ) // 只显示 h2, h3
+                            .map((heading: any) => (
+                                <li class={`depth-${heading.depth}`}>
+                                    <a href={`#${heading.slug}`}>
+                                        {heading.text}
+                                    </a>
+                                </li>
+                            ))
+                    }
+                </ul>
+            </div>
+        </aside>
+    </div>
 </BaseLayout>
+
 <style>
-    /* 你可以根据 depth 给不同层级的标题添加缩进 */
-    .depth-2 {
-        margin-left: 2em;
+    /* --- 1. 整体布局 Grid --- */
+    .post-layout-grid {
+        display: grid;
+        /* 定义列：主内容区 (占据大部分空间) 和 侧边栏 (固定宽度) */
+        grid-template-columns: 1fr 280px;
+        gap: 3rem; /* 两栏之间的间距 */
+        /* align-items: start; */
+        /* --- 或者，使用这一行代码 --- */
+        align-items: baseline;
     }
-    .depth-3 {
-        margin-left: 4em;
+
+    /* --- 2. 文章头部样式 --- */
+    .post-header {
+        /* 让头部横跨两栏 */
+        grid-column: 1 / -1;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 0rem;
     }
-    .depth-4 {
-        margin-left: 6em;
+
+    .post-header h1 {
+        /* 继承全局 h1 样式，这里可以做微调 */
+        margin-bottom: 1rem;
+    }
+
+    .post-meta {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--secondary-text-color);
+    }
+
+    /* --- 3. 文章正文样式 --- */
+    .post-content {
+        /* 正文区的样式，例如行高、段落间距等 */
+        line-height: 1.8;
+    }
+
+    /* 为正文中的标题、段落等元素设置统一样式 */
+    .post-content > :global(h2),
+    .post-content > :global(h3) {
+        margin-top: 0rem;
+        margin-bottom: 1rem;
+    }
+
+    .post-content > :global(p) {
+        margin-bottom: 1.5rem;
+    }
+
+    /* --- 4. 目录 (TOC) 样式 --- */
+    .post-toc {
+        /* 继承全局 .table-of-contents 的部分样式，但这里做定位 */
+    }
+
+    .toc-wrapper {
+        position: sticky;
+        top: 100px; /* 距离视口顶部 100px 开始固定 */
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+
+    .toc-wrapper h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .toc-wrapper ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .toc-wrapper a {
+        display: block;
+        color: var(--secondary-text-color);
+        text-decoration: none;
+        padding: 6px 0;
+        font-size: 0.875rem;
+        border-left: 2px solid transparent;
+        padding-left: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .toc-wrapper a:hover {
+        color: var(--primary-text-color);
+        background-color: var(--primary-fill-color);
+    }
+
+    .toc-wrapper li.depth-3 a {
+        padding-left: 2rem; /* h3 标题缩进 */
+    }
+
+    .toc-wrapper a.active {
+        color: var(--accent-color);
+        border-left-color: var(--accent-color);
+    }
+
+    /* --- 5. 响应式：在小屏幕上变为单栏 --- */
+    @media (max-width: 1024px) {
+        .post-layout-grid {
+            grid-template-columns: 1fr; /* 变为单栏 */
+        }
+
+        .post-toc {
+            display: none; /* 在移动端隐藏右侧目录 */
+        }
     }
 </style>

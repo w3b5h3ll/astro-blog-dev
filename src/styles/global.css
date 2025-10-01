@@ -1,57 +1,14 @@
-/* 导航样式 */
-.hamburger {
-    padding-right: 20px;
-    cursor: pointer;
-}
+/* ==========================================================================
+   1. Root & Variables (Light & Dark Theme)
+   ========================================================================== */
 
-.hamburger .line {
-    display: block;
-    width: 40px;
-    height: 5px;
-    margin-bottom: 10px;
-    background-color: #ff9776;
-}
-.nav-links {
-    width: 100%;
-    top: 5rem;
-    left: 48px;
-    background-color: #ff9776;
-    display: none;
-    margin: 0;
-}
-
-.nav-links a {
-    display: block;
-    text-align: center;
-    padding: 10px 0;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.nav-links a:hover,
-.nav-links a:focus {
-    background-color: #ff9776;
-}
-
-.expanded {
-    display: unset;
-}
-
-@media screen and (min-width: 636px) {
-    .nav-links {
-        margin-left: 5em;
-        display: block;
-        position: static;
-        width: auto;
-        background: none;
-    }
-
-    .nav-links a {
-        display: inline-block;
-        padding: 15px 20px;
-    }
+:root {
+    --primary-fill-color: #f8f9fa; /* 主背景色 */
+    --secondary-fill-color: #ffffff; /* 卡片、代码块背景 */
+    --primary-text-color: #202124; /* 主文本颜色 */
+    --secondary-text-color: #5f6368; /* 次要文本颜色 */
+    --accent-color: #1d60a3; /* 链接、高亮色 */
+    --border-color: #dadce0; /* 边框颜色 */
 }
 
 html.dark {
@@ -63,115 +20,60 @@ html.dark {
     --border-color: #5f6368;
 }
 
-/* html.dark {
-    background-color: #1d1e20;
-    color: #dadadb;
-} */
-
-.dark .nav-links a {
-    background-color: #1d1e20;
-    color: #dadadb;
-}
-
-main {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) min(840px, 100%) minmax(0, 1fr);
-
-    & > .content-wrapper {
-        grid-column: 2;
-    }
-}
-
-.content-wrapper {
-    padding-top: 64px;
-    padding-bottom: 64px;
-    padding-left: 24px;
-    padding-right: 24px;
-}
-
-.table-of-contents {
-    /* 粘性定位 */
-    position: sticky;
-    top: 112px;
-
-    /* 限制自身高度，超出部分可滚动 */
-    max-height: calc(100vh - 128px);
-    overflow-y: auto;
-
-    /* 字体和颜色 */
-    font-size: 0.875rem; /* 14px */
-    color: var(--secondary-text-color);
-}
-
-.table-of-contents ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.table-of-contents li {
-    margin-bottom: 8px;
-}
-
-.table-of-contents a {
-    display: block;
-    padding: 4px 0;
-    color: var(--secondary-text-color);
-    text-decoration: none;
-    border-left: 2px solid transparent; /* 默认的左边框是透明的 */
-    padding-left: 16px;
-    transition: all 0.2s ease; /* 平滑过渡效果 */
-}
-
-.table-of-contents a:hover {
-    color: var(--primary-text-color);
-    padding-left: 20px; /* 悬停时稍微向右移动 */
-}
-
-/* 当前激活章节的样式，需要 JS 配合实现 */
-.table-of-contents a.active {
-    color: var(--accent-color);
-    border-left-color: var(--accent-color); /* 激活时左边框显示高亮色 */
-}
+/* ==========================================================================
+   2. Base & Typography Styles
+   ========================================================================== */
 
 body {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    line-height: 1.75; /* 175% 的行高 */
+    background-color: var(--primary-fill-color);
     color: var(--primary-text-color);
+    /* font-family: "Roboto", sans-serif; */
+    font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
+        sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    margin: 0;
+}
+
+h1,
+h2,
+h3 {
+    /* font-family: "Google Sans", sans-serif; */
+    font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
+        sans-serif;
+    font-weight: 700;
 }
 
 h1 {
-    font-family: "Google Sans", sans-serif;
+    /* font-size: 2.5rem; 40px */
     font-size: 22px;
-    font-weight: 700;
     line-height: 1.2;
 }
 
 h2 {
-    font-family: "Google Sans", sans-serif;
     font-size: 20px;
-    font-weight: 700;
     line-height: 1.3;
 }
 
 h3 {
-    font-family: "Google Sans", sans-serif;
     font-size: 18px;
-    font-weight: 700;
     line-height: 1.4;
 }
 
 a {
     color: var(--accent-color);
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
+pre,
 code {
-    font-family: "Roboto Mono", monospace;
+    /* font-family: "Roboto Mono", monospace; */
+    font-family: "Fira Mono", monospace, "Noto Sans SC Variable", sans-serif;
 }
 
 pre {
@@ -179,115 +81,316 @@ pre {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 16px;
-    overflow-x: auto; /* 代码过长时可以横向滚动 */
+    overflow-x: auto;
 }
 
-/* 默认样式（桌面端） */
+/* ==========================================================================
+   3. Layout Styles
+   ========================================================================== */
+
+.page-wrapper {
+    max-width: 960px;
+    /* margin: 40px auto; */
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.container {
+    width: 100%; /* container 应该只负责限制宽度和居中，让 page-wrapper 控制外边距 */
+    max-width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 24px;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) min(840px, 100%) minmax(0, 1fr);
+}
+
+main > .content-wrapper {
+    grid-column: 2;
+    padding: 64px 24px;
+}
+
+/* ==========================================================================
+   4. Component Styles
+   ========================================================================== */
+
+/* Header */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* background-color: var(--secondary-fill-color); */
+    background-color: #fafafa;
+    /* border-bottom: 1px solid var(--border-color); */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+}
+
+/* Main Navigation */
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    color: var(--primary-text-color);
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.main-nav a:hover {
+    color: var(--accent-color);
+    text-decoration: none; /* Nav links typically don't get underlined on hover */
+}
+
+/* Mobile Navigation Toggle */
 .mobile-nav-toggle {
-    display: none; /* 汉堡按钮在桌面端默认隐藏 */
+    display: none;
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
 }
 
-/* 当屏幕宽度小于等于 768px 时，应用以下样式 */
+/* Tags */
+.tags-container {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    padding: 20px 0;
+}
+
+.tag-item {
+    display: inline-block;
+    background-color: var(--primary-fill-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--secondary-text-color);
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.tag-item:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color);
+}
+
+/* Table of Contents */
+.table-of-contents {
+    position: sticky;
+    top: 112px;
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
+    font-size: 0.875rem;
+    color: var(--secondary-text-color);
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 8px; /* Applied to ul instead of every li */
+}
+
+.table-of-contents a {
+    display: block;
+    padding: 4px 16px 4px 16px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.table-of-contents a:hover {
+    color: var(--primary-text-color);
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.table-of-contents a.active {
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+}
+
+/* Footer */
+.site-footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.site-footer p {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--secondary-text-color);
+}
+
+/* ==========================================================================
+   5. Responsive Overrides
+   ========================================================================== */
+
 @media (max-width: 768px) {
-    /* 1. 显示汉堡按钮，隐藏桌面导航 */
     .main-nav {
-        display: none; /* 隐藏原始的导航栏 */
-    }
-    .mobile-nav-toggle {
-        display: block; /* 显示汉堡按钮 */
+        display: none;
     }
 
-    /* 2. 重新定义移动端导航栏的样式（当它被激活时）*/
-    /* 我们将通过 JS 添加一个 'is-open' class 来控制显示 */
+    .mobile-nav-toggle {
+        display: block;
+    }
+
     .main-nav.is-open {
-        display: block; /* 覆盖上面的 'display: none' */
-        position: absolute; /* 绝对定位，使其脱离文档流，浮在内容之上 */
-        top: 64px; /* 从头部下方开始，64px 是头部的高度 */
+        display: block;
+        position: absolute;
+        top: 64px;
         left: 0;
         width: 100%;
-        background-color: var(--color-background-header); /* 使用头部背景色 */
+        background-color: var(--secondary-fill-color);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .main-nav.is-open ul {
-        flex-direction: column; /* 让列表项垂直排列 */
+        flex-direction: column;
         width: 100%;
         text-align: center;
     }
 
     .main-nav.is-open li {
         padding: 16px 0;
-        border-bottom: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--border-color);
     }
 
-    /* 3. 调整版心容器的左右边距 */
-    .container {
+    .container,
+    .page-wrapper {
         padding-left: 16px;
         padding-right: 16px;
     }
 
-    /* 4. （可选）适当减小标题字体大小 */
     h1 {
-        font-size: 2.5rem; /* 40px */
-    }
+        font-size: 2rem;
+    } /* 32px */
+    h2 {
+        font-size: 1.5rem;
+    } /* 24px */
+    h3 {
+        font-size: 1.25rem;
+    } /* 20px */
 }
 
-.container {
-    max-width: 840px; /* 或者你喜欢的任何宽度 */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 24px; /* 左右留出安全边距 */
-    padding-right: 24px;
+.hero-background {
+    /* 基础样式 */
+    min-height: 100vh; /* 至少占据整个屏幕的高度 */
+    background-size: cover; /* 图片覆盖整个容器 */
+    background-position: center center; /* 图片居中显示 */
+    background-repeat: no-repeat;
+
+    /* 添加一个柔和的过渡效果，让图片加载时更自然 */
+    transition: background-image 1s ease-in-out;
+
+    /* (可选) 添加一个深色遮罩，让文字更清晰 */
+    position: relative;
+    display: flex; /* 用于居中打字机效果 */
+    justify-content: center;
+    align-items: center;
 }
 
-.site-header {
-    position: sticky; /* 这是实现粘性导航的关键！ */
-    top: 0; /* 当滚动到顶部时，开始固定 */
-    z-index: 100; /* 确保它在最上层 */
+.hero-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* 40% 透明度的黑色遮罩 */
+}
 
+/* ==========================================================================
+   Blog Post List & Preview Card Styles
+   ========================================================================== */
+
+/* 列表容器：控制卡片之间的间距 */
+.posts-list {
+    display: grid;
+    gap: 2rem; /* 卡片之间的垂直间距 */
+}
+
+/* 卡片容器本身 */
+.post-preview-card {
     background-color: var(
-        --color-background-header
-    ); /* 定义一个头部背景色变量 */
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 添加一点阴影增加立体感 */
+        --secondary-fill-color
+    ); /* 使用变量，确保深色模式下正确显示 */
+    border: 1px solid var(--border-color);
+    border-radius: 12px; /* 圆角风格 */
+    /* padding: 2rem; 内部留白，1rem = 16px */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-/* 使用 Flexbox 来对齐 Logo 和 Nav */
-.site-header .container {
-    display: flex;
-    justify-content: space-between; /* 两端对齐 */
-    align-items: center; /* 垂直居中 */
-    height: 64px; /* 给头部一个固定的高度 */
+/* 鼠标悬停在卡片上时，卡片轻微上浮并增加阴影，提升交互感 */
+.post-preview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.main-nav ul {
-    display: flex; /* 让导航项水平排列 */
-    list-style: none;
-    gap: 24px; /* 导航项之间的间距 */
+/* 卡片标题 */
+.card-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /* font-size: 1.75rem; 28px */
+    font-size: 22px;
+    line-height: 1.3;
 }
 
-.main-nav a {
-    color: var(--color-text-secondary);
+.card-title a {
+    color: var(--primary-text-color); /* 标题颜色使用主文本色 */
     text-decoration: none;
+}
+
+.card-title a:hover {
+    text-decoration: underline; /* 悬停时才显示下划线 */
+}
+
+/* 元数据区域 (日期和作者) */
+.card-meta {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: space-between; /* 让日期和作者分别靠向两侧 */
+    align-items: center;
+    gap: 1rem;
+    /* margin-bottom: 1.5rem; */
+    font-size: 0.875rem; /* 14px */
+    color: var(--secondary-text-color); /* <<--- 恢复这一行！ */
+}
+
+.card-authors span {
+    margin-left: 0.75rem; /* 作者之间的间距 */
+}
+
+/* “阅读更多”链接 */
+.card-read-more {
     font-weight: 600;
+    color: var(--accent-color); /* 使用高亮色 */
+    text-decoration: none;
 }
 
-.main-nav a:hover {
-    color: var(--color-text-primary);
+/* 为“阅读更多”链接添加一个箭头，增强指示性 */
+.card-read-more::after {
+    content: " →";
+    transition: transform 0.2s ease-out;
+    display: inline-block;
 }
 
-.site-footer {
-    padding: 32px 0; /* 上下留出足够的呼吸空间 */
-    border-top: 1px solid var(--color-border); /* 用一条线与正文分隔 */
-    background-color: var(--color-background); /* 背景色与body一致或稍有不同 */
-}
-
-.site-footer p {
-    text-align: center; /* 文本居中 */
-    font-size: 0.875rem; /* 14px，比正文小一点 */
-    color: var(--color-text-secondary); /* 使用次要文字颜色 */
+.card-read-more:hover::after {
+    transform: translateX(4px); /* 箭头在悬停时轻微右移 */
 }

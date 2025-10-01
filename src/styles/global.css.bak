@@ -1,0 +1,344 @@
+html.dark {
+    --primary-fill-color: #202124;
+    --secondary-fill-color: #292a2d;
+    --primary-text-color: #e8eaed;
+    --secondary-text-color: #9aa0a6;
+    --accent-color: #8ab4f8;
+    --border-color: #5f6368;
+}
+
+/* html.dark {
+    background-color: #1d1e20;
+    color: #dadadb;
+} */
+
+.dark .nav-links a {
+    background-color: #1d1e20;
+    color: #dadadb;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) min(840px, 100%) minmax(0, 1fr);
+
+    & > .content-wrapper {
+        grid-column: 2;
+    }
+}
+
+.content-wrapper {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.table-of-contents {
+    /* 粘性定位 */
+    position: sticky;
+    top: 112px;
+
+    /* 限制自身高度，超出部分可滚动 */
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
+
+    /* 字体和颜色 */
+    font-size: 0.875rem; /* 14px */
+    color: var(--secondary-text-color);
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.table-of-contents li {
+    margin-bottom: 8px;
+}
+
+.table-of-contents a {
+    display: block;
+    padding: 4px 0;
+    color: var(--secondary-text-color);
+    text-decoration: none;
+    border-left: 2px solid transparent; /* 默认的左边框是透明的 */
+    padding-left: 16px;
+    transition: all 0.2s ease; /* 平滑过渡效果 */
+}
+
+.table-of-contents a:hover {
+    color: var(--primary-text-color);
+    padding-left: 20px; /* 悬停时稍微向右移动 */
+}
+
+/* 当前激活章节的样式，需要 JS 配合实现 */
+.table-of-contents a.active {
+    color: var(--accent-color);
+    border-left-color: var(--accent-color); /* 激活时左边框显示高亮色 */
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    line-height: 1.75; /* 175% 的行高 */
+    color: var(--primary-text-color);
+}
+
+h1 {
+    font-family: "Google Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h2 {
+    font-family: "Google Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+h3 {
+    font-family: "Google Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    font-family: "Roboto Mono", monospace;
+}
+
+pre {
+    background-color: var(--secondary-fill-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto; /* 代码过长时可以横向滚动 */
+}
+
+/* 默认样式（桌面端） */
+.mobile-nav-toggle {
+    display: none; /* 汉堡按钮在桌面端默认隐藏 */
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* 当屏幕宽度小于等于 768px 时，应用以下样式 */
+@media (max-width: 768px) {
+    /* 1. 显示汉堡按钮，隐藏桌面导航 */
+    .main-nav {
+        display: none; /* 隐藏原始的导航栏 */
+    }
+    .mobile-nav-toggle {
+        display: block; /* 显示汉堡按钮 */
+    }
+
+    /* 2. 重新定义移动端导航栏的样式（当它被激活时）*/
+    /* 我们将通过 JS 添加一个 'is-open' class 来控制显示 */
+    .main-nav.is-open {
+        display: block; /* 覆盖上面的 'display: none' */
+        position: absolute; /* 绝对定位，使其脱离文档流，浮在内容之上 */
+        top: 64px; /* 从头部下方开始，64px 是头部的高度 */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-background-header); /* 使用头部背景色 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-nav.is-open ul {
+        flex-direction: column; /* 让列表项垂直排列 */
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-nav.is-open li {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    /* 3. 调整版心容器的左右边距 */
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* 4. （可选）适当减小标题字体大小 */
+    h1 {
+        font-size: 2.5rem; /* 40px */
+    }
+}
+
+.container {
+    max-width: 840px; /* 或者你喜欢的任何宽度 */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px; /* 左右留出安全边距 */
+    padding-right: 24px;
+}
+
+.site-header {
+    position: sticky; /* 这是实现粘性导航的关键！ */
+    top: 0; /* 当滚动到顶部时，开始固定 */
+    z-index: 100; /* 确保它在最上层 */
+
+    background-color: var(
+        --color-background-header
+    ); /* 定义一个头部背景色变量 */
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 添加一点阴影增加立体感 */
+}
+
+/* 使用 Flexbox 来对齐 Logo 和 Nav */
+.site-header .container {
+    display: flex;
+    justify-content: space-between; /* 两端对齐 */
+    align-items: center; /* 垂直居中 */
+    height: 64px; /* 给头部一个固定的高度 */
+}
+
+.main-nav ul {
+    display: flex; /* 让导航项水平排列 */
+    list-style: none;
+    gap: 24px; /* 导航项之间的间距 */
+}
+
+.main-nav a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.main-nav a:hover {
+    color: var(--color-text-primary);
+}
+
+.site-footer {
+    padding: 32px 0; /* 上下留出足够的呼吸空间 */
+    border-top: 1px solid var(--color-border); /* 用一条线与正文分隔 */
+    background-color: var(--color-background); /* 背景色与body一致或稍有不同 */
+}
+
+.site-footer p {
+    text-align: center; /* 文本居中 */
+    font-size: 0.875rem; /* 14px，比正文小一点 */
+    color: var(--color-text-secondary); /* 使用次要文字颜色 */
+}
+
+/* 2. 这就是实现所有魔法的核心样式！ */
+.page-wrapper {
+    /* 魔法一：限制最大宽度 */
+    max-width: 960px; /* 这是内容区域的最大宽度，你可以根据喜好调整 */
+
+    /* 魔法二：实现水平居中 */
+    margin-left: auto;
+    margin-right: auto;
+    /* 上面两行通常简写为: margin: 0 auto; (上下边距为0，左右自动) */
+
+    /* 魔法三：在小屏幕上保持左右内边距 */
+    padding-left: 24px;
+    padding-right: 24px;
+    /* 这确保了在手机等窄屏幕上，内容也不会紧贴屏幕边缘 */
+
+    /* 3. 设置内容区域的视觉样式 (截图中的浅色背景和圆角) */
+    /* background-color: #ffffff; 内容区的背景色 */
+    /* border-radius: 8px; 可选：添加一点圆角 */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 可选：添加一点阴影增加立体感 */
+
+    /* 为了让背景色和阴影在页面上下也留出空间，可以添加 margin-top/bottom */
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* --- 这是实现居中排列的核心 --- */
+/* .tags-container {
+    display: flex; /* 1. 启用 Flexbox 布局 */
+/* flex-wrap: wrap; /* 2. 允许标签在空间不足时自动换行 */
+/* justify-content: center; 3. 让所有标签在主轴（水平方向）上居中对齐 */
+/* gap: 12px; 4. 设置标签之间的水平和垂直间距 */
+/* padding: 20px 0; 给标签容器一些上下内边距，让其看起来不拥挤 */
+/* } */
+
+/* --- 这是让容器本身居中的核心 --- */
+.tags-container {
+    /* 1. 让容器的宽度自适应其内容的实际宽度 */
+    /* `fit-content` 是一个现代属性，效果非常好 */
+    width: fit-content;
+
+    /* 2. 对这个已经确定宽度的容器使用 margin auto 来实现居中 */
+    margin-left: auto;
+    margin-right: auto;
+
+    /* 3. （可选）为了防止标签在一行上过长，可以加一个最大宽度限制 */
+    max-width: 100%; /* 确保在小屏幕上不会溢出 */
+
+    /* 容器内部的标签排列方式（保持不变） */
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    gap: 12px;
+
+    /* 因为我们不再需要居中内部元素，可以去掉 justify-content 或设为默认值 */
+    justify-content: flex-start; /* (可选) 让标签在容器内从左开始排列 */
+
+    padding: 20px 0;
+}
+
+/* 单个标签的样式 */
+.tag-item {
+    display: inline-block; /* 表现为行内块元素 */
+    /* background-color: #f2f2f2; 浅灰色背景 */
+    /* color: #333; 文字颜色 */
+    padding: 8px 16px; /* 内边距，让标签看起来更饱满 */
+    /* border-radius: 20px; 圆角，让其看起来像胶囊形状 */
+    text-decoration: none; /* 去掉链接的下划线 */
+    font-size: 0.9rem; /* 14.4px */
+    transition: background-color 0.2s ease, color 0.2s ease; /* 添加平滑过渡效果 */
+}
+
+/* 鼠标悬停时的效果 */
+.tag-item:hover {
+    background-color: #1d60a3; /* 蓝色背景 */
+    color: #ffffff; /* 白色文字 */
+}
+
+.about-link:hover {
+    color: #a31d1d;
+}
+
+/* 将此代码添加到您的全局 CSS 文件或 Header 组件的 <style> 标签中 */
+
+.site-header .container {
+    display: flex;
+    justify-content: center; /* 核心：让容器内的所有直接子元素水平居中 */
+    align-items: center; /* (可选) 确保垂直方向也居中 */
+    height: 64px; /* (示例) 给头部一个固定的高度 */
+}
+
+/* 接下来，设置导航链接本身的样式 */
+.main-nav {
+    display: flex; /* 让 a 标签们水平排列 */
+    gap: 2rem; /* 设置链接之间的间距，1rem 大约是 16px */
+}
+
+.main-nav a {
+    color: var(--color-text-primary); /* 使用颜色变量 */
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--color-accent); /* 鼠标悬停时使用高亮色 */
+}

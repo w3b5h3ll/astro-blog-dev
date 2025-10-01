@@ -1,22 +1,18 @@
 ---
 const platform = "github";
 const username = "w3b5h3ll";
-import Social from "./Social.astro";
+// Supports weights 100-900
+import '@fontsource-variable/noto-sans-sc';
+// Supports weights 300-800
+import '@fontsource-variable/open-sans';
+import '@fontsource/fira-mono';
 ---
 
-<!-- <style>
-    footer {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-</style> -->
 <footer class='site-footer'>
-
     <div class='container'>
         <p>
             &copy; 2024 - <span id='current-year'></span> | Inspired by <strong
-                ><a href='https://androidoffsec.withgoogle.com/about/'
+                ><a href='https://androidoffsec.withgoogle.com/about/' class="about-link"
                     >Android Red Team</a
                 ></strong
             >

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 import "../styles/global.css";
+
 ---
 
 <html lang='en'>
@@ -22,18 +23,20 @@ import "../styles/global.css";
     >
 </html>
 <body>
-    <!-- <Navigation /> -->
-    <Header />
-    <!-- <h1>Astro</h1> -->
-    <slot />
-    <Footer />
-    <script>
-        import "../scripts/menu.js";
-        document.addEventListener("DOMContentLoaded", function () {
-            const currentYearSpan = document.getElementById("current-year");
-            if (currentYearSpan) {
-                currentYearSpan.textContent = new Date().getFullYear();
-            }
-        });
-    </script>
+    <div class='page-wrapper'>
+        <!-- <Navigation /> -->
+        <Header />
+        <!-- <h1>Astro</h1> -->
+        <slot />
+        <Footer />
+        <script>
+            import "../scripts/menu.js";
+            document.addEventListener("DOMContentLoaded", function () {
+                const currentYearSpan = document.getElementById("current-year");
+                if (currentYearSpan) {
+                    currentYearSpan.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
+    </div>
 </body>

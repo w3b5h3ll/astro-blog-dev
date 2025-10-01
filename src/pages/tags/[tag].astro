@@ -27,8 +27,8 @@ const { posts } = Astro.props;
 ---
 
 <BaseLayout pageTitle={tag}>
-    <p>包含「{tag}」标签的文章</p>
-    <ul>
+    <h2>包含「{tag}」标签的文章</h2>
+    <ul style='padding-left: 0;'>
         {
             posts.map((post: any) => (
                 <BlogPost url={post.url} title={post.frontmatter.title} />
