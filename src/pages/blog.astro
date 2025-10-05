@@ -9,7 +9,7 @@ import BlogPost from "../components/BlogPost.astro";
 // 2. 使用 `await getCollection("posts")` 获取所有文章
 //    "posts" 是你在 `src/content/` 目录下的文件夹名
 const allPosts = await getCollection("posts");
-
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const pageTitle = "Blog";
 ---
 

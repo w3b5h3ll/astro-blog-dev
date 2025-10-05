@@ -7,6 +7,7 @@ import BlogPost from "../../components/BlogPost.astro";
 export const getStaticPaths: GetStaticPaths = async () => {
     // 1. 使用 getCollection 获取所有文章
     const allPosts = await getCollection("posts");
+    allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
     // 2. 从 post.data.tags 获取标签
     const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
