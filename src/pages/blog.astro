@@ -1,24 +1,31 @@
 ---
+// src/pages/blog.astro (或者类似的文件名)
+
+// 1. 从 `astro:content` 导入 `getCollection`
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
-const allPosts = Object.values(
-    import.meta.glob("./posts/*.md", { eager: true })
-);
-// import BlogPost from "../components/BlogPost.astro";
-const pageTitle = "我的 Astro 学习博客";
+
+// 2. 使用 `await getCollection("posts")` 获取所有文章
+//    "posts" 是你在 `src/content/` 目录下的文件夹名
+const allPosts = await getCollection("posts");
+
+const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
     <h1>Blog</h1>
-    <hr />
+    <hr class="astro-hr" />
     <ul style='padding-left: 0;'>
         {
-            allPosts.map((post: any) => (
+            allPosts.map((post:any) => (
                 <BlogPost
-                    title={post.frontmatter.title}
-                    url={post.url}
-                    author={post.frontmatter.author}
-                    date={post.frontmatter.pubDate}
+                    // 3. `post.frontmatter` 变为 `post.data`
+                    title={post.data.title}
+                    // 4. `post.url` 需要用 `post.slug` 手动构建
+                    url={`/posts/${post.slug}/`}
+                    author={post.data.author}
+                    date={post.data.pubDate}
                 />
             ))
         }

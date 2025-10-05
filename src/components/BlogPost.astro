@@ -15,15 +15,15 @@ const dateObject = new Date(date);
 const formattedDate = dateObject.toLocaleDateString("en-CA", options);
 ---
 
-<h2 class='card-title'>
+<!-- <h2 class='card-title'>
     <a href={url}>{title}</a>
-</h2>
-
+</h2> -->
 <div class='card-meta'>
-    <time class='card-date' datetime={date}>{formattedDate}</time>
+    <a href={url}>{title}</a>
     <div class='card-authors'>
-        <span>{author}</span>
+        <span>@{author}</span>
     </div>
+    <time class='card-date' datetime={date}>{formattedDate}</time>
 </div>
 
-<a href={url} class='card-read-more'>Read more</a>
+<!-- <a href={url} class='card-read-more'>Read more</a> -->

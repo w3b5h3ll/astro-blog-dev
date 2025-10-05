@@ -9,12 +9,6 @@
     --secondary-text-color: #5f6368; /* 次要文本颜色 */
     --accent-color: #1d60a3; /* 链接、高亮色 */
     --border-color: #dadce0; /* 边框颜色 */
-    --code-bg: var(--secondary-fill-color);
-    --code-title-text-color: var(--secondary-text-color);
-    --code-title-bg: var(--primary-fill-color);
-    --code-border-color: var(--border-color);
-    --code-line-number-color: var(--secondary-text-color);
-    --code-line-highlight-bg: rgba(138, 180, 248, 0.1);
 }
 
 html.dark {
@@ -24,12 +18,6 @@ html.dark {
     --secondary-text-color: #9aa0a6;
     --accent-color: #8ab4f8;
     --border-color: #5f6368;
-    --code-bg: var(--secondary-fill-color);
-    --code-title-text-color: var(--secondary-text-color);
-    --code-title-bg: var(--primary-fill-color);
-    --code-border-color: var(--border-color);
-    --code-line-number-color: var(--secondary-text-color);
-    --code-line-highlight-bg: rgba(138, 180, 248, 0.2);
 }
 
 /* ==========================================================================
@@ -39,6 +27,7 @@ html.dark {
 body {
     background-color: var(--primary-fill-color);
     color: var(--primary-text-color);
+    /* font-family: "Roboto", sans-serif; */
     font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
         sans-serif;
     font-size: 16px;
@@ -49,12 +38,14 @@ body {
 h1,
 h2,
 h3 {
+    /* font-family: "Google Sans", sans-serif; */
     font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
         sans-serif;
     font-weight: 700;
 }
 
 h1 {
+    /* font-size: 2.5rem; 40px */
     font-size: 22px;
     line-height: 1.2;
 }
@@ -85,12 +76,13 @@ a:hover {
 
 .page-wrapper {
     max-width: 960px;
+    /* margin: 40px auto; */
     margin: 40px auto;
     padding: 0 24px;
 }
 
 .container {
-    width: 100%;
+    width: 100%; /* container 应该只负责限制宽度和居中，让 page-wrapper 控制外边距 */
     max-width: 840px;
     margin-left: auto;
     margin-right: auto;
@@ -116,7 +108,11 @@ main > .content-wrapper {
     position: sticky;
     top: 0;
     z-index: 100;
+    /* background-color: var(--secondary-fill-color); */
+    /* background-color: #fafafa; */
     background-color: var(--primary-fill-color);
+    /* border-bottom: 1px solid var(--border-color); */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
 }
 
 .site-header .container {
@@ -140,7 +136,7 @@ main > .content-wrapper {
 
 .main-nav a:hover {
     color: var(--accent-color);
-    text-decoration: none;
+    text-decoration: none; /* Nav links typically don't get underlined on hover */
 }
 
 /* Mobile Navigation Toggle */
@@ -169,7 +165,7 @@ main > .content-wrapper {
     display: inline-block;
     background-color: var(--primary-fill-color);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 20px;
     color: var(--secondary-text-color);
     padding: 8px 16px;
     text-decoration: none;
@@ -196,12 +192,12 @@ main > .content-wrapper {
 .table-of-contents ul {
     list-style: none;
     padding-left: 0;
-    margin-bottom: 8px;
+    margin-bottom: 8px; /* Applied to ul instead of every li */
 }
 
 .table-of-contents a {
     display: block;
-    padding: 4px 16px;
+    padding: 4px 16px 4px 16px;
     border-left: 2px solid transparent;
     transition: all 0.2s ease;
 }
@@ -220,6 +216,7 @@ main > .content-wrapper {
 /* Footer */
 .site-footer {
     padding: 32px 0;
+    /* border-top: 1px solid var(--border-color); */
 }
 
 .site-footer p {
@@ -228,180 +225,8 @@ main > .content-wrapper {
     color: var(--secondary-text-color);
 }
 
-/* Hero Background */
-.hero-background {
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.hero-background::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-}
-
 /* ==========================================================================
-   5. Blog Post List & Preview Card Styles
-   ========================================================================== */
-
-.posts-list {
-    display: grid;
-    gap: 2rem;
-}
-
-.post-preview-card {
-    background-color: var(--secondary-fill-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-}
-
-.post-preview-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 22px;
-    line-height: 1.3;
-}
-
-.card-title a {
-    color: var(--primary-text-color);
-    text-decoration: none;
-}
-
-.card-title a:hover {
-    text-decoration: underline;
-}
-
-.card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.875rem;
-    color: var(--secondary-text-color);
-}
-
-.card-authors span {
-    margin-left: 0.75rem;
-}
-
-.card-date {
-    margin-left: auto;
-}
-
-.card-read-more {
-    font-weight: 600;
-    color: var(--accent-color);
-    text-decoration: none;
-}
-
-.card-read-more::after {
-    content: " →";
-    transition: transform 0.2s ease-out;
-    display: inline-block;
-}
-
-.card-read-more:hover::after {
-    transform: translateX(4px);
-}
-
-.astro-hr {
-    border: none;
-    border-top: 1px solid var(--border-color);
-    margin: 24px 0;
-}
-
-/* ==========================================================================
-   6. Code Block Styles
-   ========================================================================== */
-
-[data-rehype-pretty-code-figure] {
-    margin: 1.5rem 0;
-}
-
-pre {
-    background-color: var(--primary-fill-color);
-    border: 1px dashed #dadce0;
-    border-radius: 4px;
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 0;
-}
-
-[data-rehype-pretty-code-title] {
-    padding: 0.75rem 1rem;
-    font-family: sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--code-title-text-color);
-    background-color: var(--code-title-bg);
-    border: 1px solid var(--code-border-color);
-    border-bottom: none;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-
-[data-rehype-pretty-code-title] + pre {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-pre[data-show-line-numbers] {
-    counter-reset: line;
-}
-
-pre .line {
-    display: block;
-    min-height: 1.5em;
-}
-
-pre[data-show-line-numbers] .line::before {
-    counter-increment: line;
-    content: counter(line);
-    display: inline-block;
-    width: 2rem;
-    margin-right: 1rem;
-    text-align: right;
-    color: var(--code-line-number-color);
-    user-select: none;
-}
-
-pre .line[data-highlighted-line] {
-    background-color: var(--code-line-highlight-bg);
-    margin-inline: -1rem;
-    padding-inline: 1rem;
-}
-
-code {
-    font-family: "Fira Mono", monospace, "Noto Sans SC Variable", sans-serif;
-    font-size: 14px;
-    background-color: var(--primary-fill-color);
-    border-radius: 4px;
-    padding: 2px;
-}
-
-:not(pre) > code {
-    border: 1px dashed #dadce0;
-}
-
-/* ==========================================================================
-   7. Responsive Overrides
+   5. Responsive Overrides
    ========================================================================== */
 
 @media (max-width: 768px) {
@@ -419,7 +244,10 @@ code {
         top: 64px;
         left: 0;
         width: 100%;
+        /* background-color: var(--secondary-fill-color); */
+        /* background-color: #ffffff; */
         background-color: var(--primary-fill-color);
+        /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
     }
 
     .main-nav.is-open ul {
@@ -430,6 +258,7 @@ code {
 
     .main-nav.is-open li {
         padding: 16px 0;
+        /* border-bottom: 1px solid var(--border-color); */
     }
 
     .container,
@@ -440,13 +269,197 @@ code {
 
     h1 {
         font-size: 2rem;
-    }
-
+    } /* 32px */
     h2 {
         font-size: 1.5rem;
-    }
-
+    } /* 24px */
     h3 {
         font-size: 1.25rem;
-    }
+    } /* 20px */
+}
+
+.hero-background {
+    /* 基础样式 */
+    min-height: 100vh; /* 至少占据整个屏幕的高度 */
+    background-size: cover; /* 图片覆盖整个容器 */
+    background-position: center center; /* 图片居中显示 */
+    background-repeat: no-repeat;
+
+    /* 添加一个柔和的过渡效果，让图片加载时更自然 */
+    transition: background-image 1s ease-in-out;
+
+    /* (可选) 添加一个深色遮罩，让文字更清晰 */
+    position: relative;
+    display: flex; /* 用于居中打字机效果 */
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* 40% 透明度的黑色遮罩 */
+}
+
+/* ==========================================================================
+   Blog Post List & Preview Card Styles
+   ========================================================================== */
+
+/* 列表容器：控制卡片之间的间距 */
+.posts-list {
+    display: grid;
+    gap: 2rem; /* 卡片之间的垂直间距 */
+}
+
+/* 卡片容器本身 */
+.post-preview-card {
+    background-color: var(
+        --secondary-fill-color
+    ); /* 使用变量，确保深色模式下正确显示 */
+    border: 1px solid var(--border-color);
+    border-radius: 12px; /* 圆角风格 */
+    /* padding: 2rem; 内部留白，1rem = 16px */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+/* 鼠标悬停在卡片上时，卡片轻微上浮并增加阴影，提升交互感 */
+.post-preview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 卡片标题 */
+.card-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /* font-size: 1.75rem; 28px */
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.card-title a {
+    color: var(--primary-text-color); /* 标题颜色使用主文本色 */
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    text-decoration: underline; /* 悬停时才显示下划线 */
+}
+
+/* 元数据区域 (日期和作者) */
+.card-meta {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    /* justify-content: space-between; 让日期和作者分别靠向两侧 */
+    align-items: center;
+    gap: 1rem;
+    /* margin-bottom: 1.5rem; */
+    font-size: 0.875rem; /* 14px */
+    color: var(--secondary-text-color); /* <<--- 恢复这一行！ */
+}
+
+.card-authors span {
+    margin-left: 0.75rem; /* 作者之间的间距 */
+}
+
+/* --- 只需添加下面这一行 --- */
+.card-date {
+    margin-left: auto; /* 关键！自动将左边距推满，元素靠右 */
+}
+
+/* “阅读更多”链接 */
+.card-read-more {
+    font-weight: 600;
+    color: var(--accent-color); /* 使用高亮色 */
+    text-decoration: none;
+}
+
+/* 为“阅读更多”链接添加一个箭头，增强指示性 */
+.card-read-more::after {
+    content: " →";
+    transition: transform 0.2s ease-out;
+    display: inline-block;
+}
+
+.card-read-more:hover::after {
+    transform: translateX(4px); /* 箭头在悬停时轻微右移 */
+}
+
+.astro-hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 24px 0;
+}
+
+/* 1. 代码块容器 */
+pre,
+code {
+    /* font-family: "Roboto Mono", monospace; */
+    font-family: "Fira Mono", monospace, "Noto Sans SC Variable", sans-serif;
+    font-size: 14px;
+}
+
+pre {
+    background-color: var(--secondary-fill-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+}
+pre {
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow-x: auto; /* 代码过长时允许水平滚动 */
+
+    /* 使用 CSS 变量来适应亮/暗模式 */
+    background-color: #2e3440; /* 这是 Nord 主题的背景色，请根据你的主题修改 */
+}
+
+
+/* 2. 代码块标题栏 */
+
+[data-rehype-pretty-code-figure] {
+    margin: 0; /* 移除 figure 元素的默认外边距 */
+}
+
+[data-rehype-pretty-code-title] {
+    padding: 0.5rem 1rem;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    color: #d8dee9;
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 1px solid #434c5e;
+    border-bottom: none;
+}
+
+/* 标题栏下面的 pre 元素需要调整样式 */
+[data-rehype-pretty-code-title] + pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* 3. 行号样式 */
+pre .line-number {
+    display: inline-block;
+    width: 2rem; /* 留出足够的宽度 */
+    text-align: right;
+    margin-right: 1rem;
+    color: #4c566a; /* 行号颜色 */
+    user-select: none; /* 防止用户选中行号 */
+}
+
+/* 4. 高亮行的样式 */
+pre .line.highlighted {
+    background-color: #3b4252; /* 高亮行的背景色 */
+    border-left: 2px solid #88c0d0; /* 左侧高亮条 */
+    padding-left: calc(1rem - 2px);
+    margin-left: -1rem;
 }

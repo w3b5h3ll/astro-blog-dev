@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
-const { headings } = Astro.props;
+const { headings = [] } = Astro.props;
+// 1. 首先过滤出我们需要显示的标题 (h2, h3)
+const filteredHeadings = headings.filter(
+    (heading: any) => heading.depth > 1 && heading.depth < 4
+);
 
 // 创建一个格式化后的日期
 const postDate = new Date(frontmatter.pubDate);
@@ -23,32 +27,35 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
                 >
             </div>
         </header>
+        {/* 2. 只有当过滤后的标题数量大于 0 时，才渲染整个目录组件 */}
+        {
+            filteredHeadings.length > 0 && (
+                <aside class='post-toc'>
+                    <div class='toc-wrapper'>
+                        {/* 3. 使用 <details> 和 <summary> 实现原生折叠功能 */}
+                        {/* 添加 open 属性可以让目录默认展开 */}
+                        <details open>
+                            <summary>
+                                <h3>目录</h3>
+                            </summary>
+                            <ul>
+                                {filteredHeadings.map((heading: any) => (
+                                    <li class={`depth-${heading.depth}`}>
+                                        <a href={`#${heading.slug}`}>
+                                            {heading.text}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </details>
+                    </div>
+                </aside>
+            )
+        }
 
         <article class='post-content'>
             <slot />
         </article>
-
-        <aside class='post-toc'>
-            <div class='toc-wrapper'>
-                <h3>目录</h3>
-                <ul>
-                    {
-                        headings
-                            .filter(
-                                (heading: any) =>
-                                    heading.depth > 1 && heading.depth < 4
-                            ) // 只显示 h2, h3
-                            .map((heading: any) => (
-                                <li class={`depth-${heading.depth}`}>
-                                    <a href={`#${heading.slug}`}>
-                                        {heading.text}
-                                    </a>
-                                </li>
-                            ))
-                    }
-                </ul>
-            </div>
-        </aside>
     </div>
 </BaseLayout>
 
@@ -57,8 +64,10 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
     .post-layout-grid {
         display: grid;
         /* 定义列：主内容区 (占据大部分空间) 和 侧边栏 (固定宽度) */
-        grid-template-columns: 1fr 280px;
-        gap: 3rem; /* 两栏之间的间距 */
+        /* grid-template-columns: 1fr 280px; */
+        grid-template-columns: 1fr;
+        /* gap: 3rem; 两栏之间的间距 */
+        gap: 0;
         /* align-items: start; */
         /* --- 或者，使用这一行代码 --- */
         align-items: baseline;
@@ -67,7 +76,7 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
     /* --- 2. 文章头部样式 --- */
     .post-header {
         /* 让头部横跨两栏 */
-        grid-column: 1 / -1;
+        /* grid-column: 1 / -1; */
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 0rem;
@@ -103,15 +112,44 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
     }
 
     /* --- 4. 目录 (TOC) 样式 --- */
-    .post-toc {
+    /* .post-toc {
         /* 继承全局 .table-of-contents 的部分样式，但这里做定位 */
+    /* } */
+
+    .post-toc {
+        border: 1px solid var(--border-color);
+        padding: 1rem 1.5rem;
+        border-radius: 8px; /* 圆角 */
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem; /* 与下方文章内容的间距 */
+        background-color: var(
+            --primary-fill-color
+        ); /* 可选：加个淡淡的背景色 */
+    }
+
+    /* 为 <summary> 添加一个鼠标指针样式，提示用户可以点击 */
+    .post-toc summary {
+        cursor: pointer;
+        /* 防止点击时出现浏览器默认的轮廓线 */
+        outline: none;
+    }
+
+    /* 默认的展开/收起小三角可能不好看，可以自定义样式或隐藏它 */
+    .post-toc summary::-webkit-details-marker {
+        /* display: none; */ /* 如果想完全隐藏，取消这行注释 */
+    }
+
+    .post-toc h3 {
+        /* 让 "目录" 标题和折叠三角在同一行显示 */
+        display: inline-block;
+        margin: 0;
     }
 
     .toc-wrapper {
-        position: sticky;
-        top: 100px; /* 距离视口顶部 100px 开始固定 */
-        max-height: calc(100vh - 120px);
-        overflow-y: auto;
+        /* position: sticky; */
+        /* top: 100px; 距离视口顶部 100px 开始固定 */
+        /* max-height: calc(100vh - 120px); */
+        /* overflow-y: auto; */
     }
 
     .toc-wrapper h3 {
@@ -158,7 +196,7 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
         }
 
         .post-toc {
-            display: none; /* 在移动端隐藏右侧目录 */
+            /* display: none; 在移动端隐藏右侧目录 */
         }
     }
 </style>

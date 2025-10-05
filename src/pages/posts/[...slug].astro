@@ -1,0 +1,29 @@
+---
+// src/pages/posts/[...slug].astro
+
+// 1. 从 'astro' 导入 InferGetStaticPropsType 类型帮助器
+import type { InferGetStaticPropsType } from "astro";
+import { getCollection } from "astro:content";
+// import PostLayout from "../../layouts/PostLayout.astro";
+import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("posts");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+// 2. 使用 InferGetStaticPropsType 来推断 props 的类型
+// 这会让 TypeScript 准确知道 post 的类型是什么
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+
+const { Content, headings } = await post.render();
+---
+
+<MarkdownPostLayout frontmatter={post.data} headings={headings}>
+    <Content />
+</MarkdownPostLayout>
