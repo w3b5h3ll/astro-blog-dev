@@ -450,3 +450,70 @@ code {
         font-size: 1.25rem;
     }
 }
+
+.post-content img {
+    /* 1. 将图片转换为块级元素 */
+    display: block;
+
+    /* 2. 使用 auto 外边距实现水平居中 */
+    /* margin-inline 是 margin-left 和 margin-right 的现代 CSS 简写 */
+    margin-inline: auto;
+
+    /* 3. (强烈推荐) 添加响应式支持 */
+    /* 防止大图片在小屏幕上溢出容器 */
+    max-width: 100%;
+
+    /* 保持图片的原始宽高比 */
+    height: auto;
+
+    /* (可选) 为图片添加一点圆角和下边距 */
+    border-radius: 8px;
+    margin-block-end: 1.5rem; /* 等同于 margin-bottom */
+}
+
+/* ==========================================================================
+   Blockquote Styles - Quotation Marks (引用块样式 - 双引号风格)
+   ========================================================================== */
+
+/* 请确保选择器与你的文章容器类名匹配 */
+/* ==========================================================================
+   Blockquote Styles (引用块样式 - 内敛左对齐版)
+   ========================================================================== */
+
+/* ==========================================================================
+   Blockquote Styles (引用块样式 - 极简引号版)
+   ========================================================================== */
+
+/* 1. blockquote 容器本身 */
+.post-content blockquote {
+    /* --- 首先，重置掉之前版本的所有复杂样式 --- */
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: static; /* 恢复默认定位 */
+
+    /* --- 设置为像一个普通段落，但有一定缩进 --- */
+    margin: var(--space-m) var(--space-l); /* 上下边距为m，左右边距为l，形成缩进 */
+
+    /* --- 字体样式，用于和正文区分 --- */
+    font-style: italic; /* 使用斜体是区分引用的经典方式 */
+    color: var(--secondary-text-color); /* 文字颜色稍浅 */
+}
+
+/* 2. 在引用块的第一个段落前添加开篇引号 */
+.post-content blockquote p:first-of-type::before {
+    content: "“"; /* 引号内容 */
+    margin-right: 0.4em; /* 在引号和文字之间留出一点空间 */
+        color: var(--accent-color);
+    font-size: 22px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+/* 3. 在引用块的最后一个段落后添加结尾引号 */
+.post-content blockquote p:last-of-type::after {
+    content: "”";
+    margin-left: 0.4em; /* 在文字和引号之间留出一点空间 */
+    color: var(--accent-color);
+    font-size: 22px;
+    font-family: Georgia, "Times New Roman", serif;
+}
