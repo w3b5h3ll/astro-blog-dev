@@ -18,5 +18,8 @@
     "astro": "^5.14.1",
     "preact": "^10.27.2",
     "rehype-pretty-code": "^0.14.1"
+  },
+  "pnpm": {
+    "neverBuiltDependencies": []
   }
 }
