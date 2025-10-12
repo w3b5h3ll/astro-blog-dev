@@ -1,25 +1,22 @@
 {
-  "name": "better-bar",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/preact": "^4.1.1",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/vercel": "^8.2.8",
-    "@fontsource-variable/noto-sans-sc": "^5.2.9",
-    "@fontsource-variable/open-sans": "^5.2.7",
-    "@fontsource/fira-mono": "^5.2.7",
-    "astro": "^5.14.1",
-    "preact": "^10.27.2",
-    "rehype-pretty-code": "^0.14.1"
-  },
-  "pnpm": {
-    "neverBuiltDependencies": []
-  }
+    "name": "better-bar",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astrojs/preact": "^4.1.1",
+        "@astrojs/rss": "^4.0.12",
+        "@astrojs/vercel": "^8.2.8",
+        "@fontsource-variable/noto-sans-sc": "^5.2.9",
+        "@fontsource-variable/open-sans": "^5.2.7",
+        "@fontsource/fira-mono": "^5.2.7",
+        "astro": "^5.14.1",
+        "preact": "^10.27.2",
+        "rehype-pretty-code": "^0.14.1"
+    }
 }
