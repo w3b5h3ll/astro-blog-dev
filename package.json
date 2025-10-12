@@ -17,7 +17,7 @@
         "@fontsource/fira-mono": "^5.2.7",
         "astro": "^5.14.1",
         "preact": "^10.27.2",
-        "rehype-pretty-code": "^0.14.1"
+        "rehype-pretty-code": "^0.14.1",
+        "sharp": "^0.34.4"
     }
-
 }
