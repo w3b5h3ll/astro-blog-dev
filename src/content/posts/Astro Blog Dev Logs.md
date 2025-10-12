@@ -36,10 +36,21 @@ Astro 对于 Vercel 的支持相当不错，开发完成之后，push 到 github
 
 Demo 地址：https://paulwang.vercel.app/
 
+### ~~CLOUDFLARE~~
+
+![](attachments/astro-20251006.png)
+
+使用 Free 版本即可添加基本保护与性能提升
+![](attachments/astro-20251006-1.png)
+
 ## 优化
 
 项目仍然存在不少可以优化的地方以及一些 feature 的增加
 
 - [ ] Dark mode 📅 2025-10-24
 - [ ] Encrypt article🔽 📅 2025-10-24
-
+- [ ] 搜索
+- [x] Cloudflare ✅ 2025-10-06
+	- 由于使用了 Vercel 提供的域名，Cloudflare 无法使用
+- [ ] RSS
+- [ ] 

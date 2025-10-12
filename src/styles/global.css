@@ -169,7 +169,8 @@ main > .content-wrapper {
     display: inline-block;
     background-color: var(--primary-fill-color);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    border-radius: 0;
     color: var(--secondary-text-color);
     padding: 8px 16px;
     text-decoration: none;
@@ -263,7 +264,8 @@ main > .content-wrapper {
 .post-preview-card {
     background-color: var(--secondary-fill-color);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    border-radius: 0;
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
@@ -338,7 +340,8 @@ main > .content-wrapper {
 pre {
     background-color: var(--primary-fill-color);
     border: 1px dashed #dadce0;
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    border-radius: 0;
     padding: 1rem;
     overflow-x: auto;
     margin: 0;
@@ -392,7 +395,8 @@ code {
     font-family: "Fira Mono", monospace, "Noto Sans SC Variable", sans-serif;
     font-size: 14px;
     background-color: var(--primary-fill-color);
-    border-radius: 4px;
+    /* border-radius: 4px; */
+    border-radius: 0;
     padding: 2px;
 }
 
@@ -467,7 +471,8 @@ code {
     height: auto;
 
     /* (可选) 为图片添加一点圆角和下边距 */
-    border-radius: 8px;
+    /* border-radius: 8px; */
+    border-radius: 0;
     margin-block-end: 1.5rem; /* 等同于 margin-bottom */
 }
 
