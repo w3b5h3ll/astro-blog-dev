@@ -2,7 +2,7 @@
 
 ---
 
-<button id='themeToggle'>
+<button id='themeToggle' type="button" aria-label="切换暗色/浅色模式" aria-pressed="false">
     <svg width='30px' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
         <path
             class='sun'
@@ -18,12 +18,19 @@
 </button>
 
 <style>
+    /* keep button visually simple and inherit color from surrounding nav */
     #themeToggle {
         border: 0;
         background: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
     }
+    /* use currentColor so icon matches nav link color */
     .sun {
-        fill: black;
+        fill: currentColor;
     }
     .moon {
         fill: transparent;
@@ -33,7 +40,7 @@
         fill: transparent;
     }
     :global(.dark) .moon {
-        fill: white;
+        fill: currentColor;
     }
 </style>
 <script is:inline>
@@ -62,9 +69,15 @@
 
         const isDark = element.classList.contains("dark");
         localStorage.setItem("theme", isDark ? "dark" : "light");
+
+        const btn = document.getElementById("themeToggle");
+        if (btn) btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
     };
 
-    document
-        .getElementById("themeToggle")
-        ?.addEventListener("click", handleToggleClick);
+    const btn = document.getElementById("themeToggle");
+    if (btn) {
+        btn.addEventListener("click", handleToggleClick);
+        // reflect initial state for screen readers
+        btn.setAttribute('aria-pressed', document.documentElement.classList.contains('dark') ? 'true' : 'false');
+    }
 </script>

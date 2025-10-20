@@ -4,7 +4,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 import "../styles/global.css";
-
 ---
 
 <html lang='en'>
@@ -34,7 +33,7 @@ import "../styles/global.css";
             document.addEventListener("DOMContentLoaded", function () {
                 const currentYearSpan = document.getElementById("current-year");
                 if (currentYearSpan) {
-                    currentYearSpan.textContent = new Date().getFullYear();
+                    currentYearSpan.textContent = String(new Date().getFullYear());
                 }
             });
         </script>
