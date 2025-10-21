@@ -37,22 +37,27 @@ html.dark {
     --c-text-base: #dddddd; /* 主要文字 (灰白色) */
     --c-text-muted: #888888; /* 次要文字, 元数据 */
     /* --c-accent: #48d892; 强调色 (链接等, 柔和且鲜明的绿色) */
-    --c-accent: #5EADF2;
-    --c-border: #2a2a2a; /* 边框 */
+    --c-accent: #5eadf2;
+    /* --c-border: #2a2a2a; 边框 */
+    --c-border: #303030; /* [修复] 稍稍调亮边框，增加区分度 */
 
     /* -- 代码块 & 语法高亮: 深色模式 -- */
-    --c-code-bg: var(--c-bg-card);
+    --c-code-bg: #222222; /* [修复] 调亮，使其从 #121212 和 #181818 中“浮”出来 */
     --c-code-text-title: var(--c-text-muted);
-    --c-code-bg-title: #1f1f1f;
-    --c-code-text-number: #666666;
+    --c-code-bg-title: #1a1a1a; /* [修复] 调暗，使其与代码区 (#222) 形成清晰对比 */
+    --c-code-text-number: #777777; /* [修复] 调亮行号 (原 #666 太暗) */
     --c-code-bg-highlight: rgba(72, 216, 146, 0.1);
 
-    --syntax-comment: var(--c-text-muted);
+    --syntax-comment: #999999; /* [修复] 调亮注释 (原 #888) */
     --syntax-keyword: #c792ea;
     --syntax-string: #86e5b3;
     --syntax-function: #82aaff;
     --syntax-number: #ffcb8b;
     --syntax-tag: #f07178;
+
+    /* [新增] 为行内代码定义单独变量 */
+    --c-code-inline-bg: #2a2a2a;
+    --c-code-inline-text: #e0e0e0;
 }
 
 /* 将旧变量映射到新变量，以确保现有样式可以无缝工作。
@@ -81,11 +86,12 @@ body {
     background-color: var(--primary-fill-color);
     color: var(--primary-text-color);
     /* 推荐：使用 System UI 字体栈，速度更快，体验更原生 */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
     /* 原有字体，若想保留可取消下面的注释 */
-    /* font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable", sans-serif; */
+    font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
+        sans-serif;
     font-size: 16px;
     line-height: 1.75;
     margin: 0;
@@ -496,10 +502,12 @@ code .token.class-name {
 
 /* 行内代码块样式 */
 :not(pre) > code {
-    background-color: var(--code-bg);
+    /* [修复] 使用新的行内代码变量，确保在任何背景下都可见 */
+    background-color: var(--c-code-inline-bg);
+    color: var(--c-code-inline-text);
     padding: 0.2em 0.4em;
     font-size: 0.9em;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--c-border); /* 使用我们调亮后的主边框 */
 }
 
 /* ==========================================================================
