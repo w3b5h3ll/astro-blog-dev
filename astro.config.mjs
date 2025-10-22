@@ -20,7 +20,8 @@ const prettyCodeOptions = {
 };
 // https://astro.build/config
 export default defineConfig({
-  site: "https://w3b5h3ll.github.io",
+  // site: "https://w3b5h3ll.github.io",
+  site: "https://paulwang.vercel.app/",
   integrations: [preact()],
 
   markdown: {

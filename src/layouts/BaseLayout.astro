@@ -9,6 +9,14 @@ import "../styles/global.css";
 <html lang='en'>
     <head>
         <meta charset='utf-8' />
+
+        <link
+            rel='alternate'
+            type='application/rss+xml'
+            title="Paul's Blog | Powered by Astro"
+            href={new URL("/rss.xml", Astro.site).toString()}
+        />
+
         <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 
         <link
@@ -33,7 +41,9 @@ import "../styles/global.css";
             document.addEventListener("DOMContentLoaded", function () {
                 const currentYearSpan = document.getElementById("current-year");
                 if (currentYearSpan) {
-                    currentYearSpan.textContent = String(new Date().getFullYear());
+                    currentYearSpan.textContent = String(
+                        new Date().getFullYear()
+                    );
                 }
             });
         </script>
