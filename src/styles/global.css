@@ -224,6 +224,7 @@ main > .content-wrapper {
     border: none;
     font-size: 24px;
     cursor: pointer;
+    padding: 24px;
 }
 
 /* Tags */
@@ -515,41 +516,61 @@ code .token.class-name {
    ========================================================================== */
 
 @media (max-width: 768px) {
-    .main-nav {
-        display: none;
+    /* 导航容器样式 */
+    .site-header .container {
+        justify-content: space-between;
+        padding: 0 0rem;
     }
+
+    /* 汉堡菜单按钮样式 */
     .mobile-nav-toggle {
         display: block;
+        background: transparent;
+        border: 0;
+        height: 64px; /* 与 header 容器等高 */
+        padding: 0 0rem;
+        color: var(--primary-text-color);
+        font-size: 1.25rem; /* 稍微调小一点图标尺寸 */
+        cursor: pointer;
+        display: flex;
+        align-items: center; /* 垂直居中 */
+        transition: color 0.2s ease; /* 添加颜色过渡效果 */
     }
-    .main-nav.is-open {
-        display: block;
+
+    .mobile-nav-toggle:hover {
+        color: var(--accent-color);
+    }
+
+    /* 导航菜单样式 */
+    .main-nav {
+        display: none;
         position: absolute;
         top: 64px;
         left: 0;
-        width: 100%;
-        background-color: var(--primary-fill-color);
+        right: 0;
+        background: var(--primary-fill-color);
+        padding: 0rem;
+        border-bottom: 1px solid var(--border-color);
     }
-    .main-nav.is-open ul {
+
+    /* 展开时的导航样式 */
+    .main-nav.is-open {
+        display: flex;
         flex-direction: column;
-        width: 100%;
-        text-align: center;
+        gap: 1rem;
+        /* gap: 0; */
     }
-    .main-nav.is-open li {
-        padding: 16px 0;
+
+    /* 导航链接样式 */
+    .main-nav a {
+        display: block;
+        padding: 0rem 0;
     }
-    .container,
-    .page-wrapper {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-    h1 {
-        font-size: 2rem;
-    }
-    h2 {
-        font-size: 1.5rem;
-    }
-    h3 {
-        font-size: 1.25rem;
+
+    /* 暗色模式切换按钮位置调整 */
+    .main-nav .theme-toggle {
+        margin-left: 0;
+        margin-top: 0.5rem;
     }
 }
 

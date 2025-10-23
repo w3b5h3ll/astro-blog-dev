@@ -4,18 +4,26 @@ import Navigation from "./Navigation.astro";
 // import ThemeIcon from "./ThemeIcon.astro";
 ---
 
-<!-- 包含导航组件的Header，使得导航组件具有响应式能力 -->
-<header class='site-header'>
+<!-- 包含导航组件的Header，使得导航组件具有响应式能力 --><!-- <header class='site-header'>
     <div class='container'>
         <!-- <div class='logo'>
             <a href='/'>Home</a>
-        </div> -->
+        </div> --><!-- <nav class='main-nav'>
+    <Navigation />
+</nav> --><!-- <ThemeIcon /> --><!-- <Hamburger /> --><!-- <button id='mobile-nav-toggle' class='mobile-nav-toggle'>☰</button>
+</header> -->
+<header class='site-header'>
+    <div class='container'>
+        <button
+            id='mobile-nav-toggle'
+            class='mobile-nav-toggle'
+            aria-label='Toggle menu'
+            aria-expanded='false'
+        >
+            ☰
+        </button>
         <nav class='main-nav'>
             <Navigation />
         </nav>
     </div>
-    <!-- <ThemeIcon /> -->
-
-    <!-- <Hamburger /> -->
-    <button id='mobile-nav-toggle' class='mobile-nav-toggle'>☰</button>
 </header>
