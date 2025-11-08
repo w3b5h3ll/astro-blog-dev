@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 
 // import preact from "@astrojs/preact";
+// 只使用 React 组件
 import react from "@astrojs/react";
 import rehypePrettyCode from "rehype-pretty-code";
 
