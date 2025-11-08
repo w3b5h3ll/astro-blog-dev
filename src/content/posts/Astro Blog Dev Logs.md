@@ -7,7 +7,6 @@ imageNameKey: astro
 title: Astro Blog Dev Logs
 ---
 
-
 ## 前言
 
 国庆前的某天，在 b 站刷到了有关 `Astro` 框架的视频，于是内心有了一点念头。一方面是去了解一下前端相关的技术，另外是去重构一下我的 Blog 站点。在此之前，曾去了解了相当多的前端框架：Hexo/Hugo/React/Next. js/Gatsby 等，也算了对这个玩具的一个收尾吧。
@@ -49,9 +48,12 @@ Demo 地址：https://paulwang.vercel.app/
 项目仍然存在不少可以优化的地方以及一些 feature 的增加
 
 - [x] Dark mode 📅 2025-10-24 ✅ 2025-10-21
-- [ ] Encrypt article🔽 📅 2025-10-24
+- [x] Encrypt article 🔽 📅 2025-10-24 ✅ 2025-11-09
+- 环境变量问题：Astro 使用 `PUBLIC_` 前缀环境变量
+
 - [ ] 搜索
 - [x] Cloudflare ✅ 2025-10-06
     - 由于使用了 Vercel 提供的域名，Cloudflare 无法使用
 - [x] RSS ✅ 2025-10-23
 - [ ] ...
+
