@@ -26,6 +26,9 @@ importers:
       '@fontsource/fira-mono':
         specifier: ^5.2.7
         version: 5.2.7
+      '@vercel/analytics':
+        specifier: ^1.5.0
+        version: 1.5.0(react@19.2.0)
       astro:
         specifier: ^5.14.1
         version: 5.14.1(@types/node@24.6.0)(@vercel/functions@2.2.13)(rollup@4.52.3)(typescript@5.9.2)
