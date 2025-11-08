@@ -2,6 +2,12 @@
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 const { headings = [] } = Astro.props;
+
+import CryptoJS from "crypto-js";
+const { AES, enc } = CryptoJS;
+
+import PasswordPrompt from "../components/PasswordPrompt.jsx";
+
 // 1. 首先过滤出我们需要显示的标题 (h2, h3)
 const filteredHeadings = headings.filter(
     (heading: any) => heading.depth > 1 && heading.depth < 4
@@ -14,6 +20,25 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
     month: "long",
     day: "numeric",
 });
+
+// 加密
+const { encrypted, passwordKey } = frontmatter;
+let encryptedContent = null;
+let correctPassword = null;
+// 使用.env + passwordKey 解密内容
+if (encrypted && passwordKey) {
+    correctPassword = import.meta.env[passwordKey];
+
+    if (!correctPassword) {
+        throw new Error(
+            `Password for key ${passwordKey} is not set in environment variables.`
+        );
+    }
+
+    // 预先渲染<slot />内容为加密文本
+    const rawContent = await Astro.slots.render("default");
+    encryptedContent = AES.encrypt(rawContent, correctPassword).toString();
+}
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
@@ -54,7 +79,17 @@ const formattedDate = postDate.toLocaleDateString("en-CA", {
         }
 
         <article class='post-content'>
-            <slot />
+            {
+                encrypted && encryptedContent && correctPassword ? (
+                    <PasswordPrompt
+                        client:only="react"
+                        encryptedContent={encryptedContent}
+                        correctPassword={correctPassword}
+                    />
+                ) : (
+                    <slot />
+                )
+            }
         </article>
     </div>
 </BaseLayout>

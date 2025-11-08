@@ -3,21 +3,20 @@
    ========================================================================== */
 
 :root {
-    /* -- 主题颜色: 浅色模式 -- */
-    --c-bg: #ffffff; /* 页面背景 */
-    --c-bg-card: #f9f9f9; /* 卡片、代码块背景 */
-    --c-text-base: #202124; /* 主要文字 */
-    --c-text-muted: #5f6368; /* 次要文字, 元数据 */
-    /* --c-accent: #059669; 强调色 (链接等, 使用沉稳的绿色) */
-    --c-accent: #2563eb;
-    --c-border: #e5e5e5; /* 边框 */
+    /* -- 浅色模式: Modern Journal -- */
+    --c-bg: #ffffff; /* 纯白背景，高对比度 */
+    --c-bg-card: #f7f7f7; /* 卡片使用非常浅的灰色 */
+    --c-text-base: #111111; /* 纯黑文本，最清晰 */
+    --c-text-muted: #555555;
+    --c-accent: #990000; /* 经典的牛津红/Maroon */
+    --c-border: #e5e5e5;
 
     /* -- 代码块 & 语法高亮: 浅色模式 -- */
     --c-code-bg: var(--c-bg-card);
     --c-code-text-title: var(--c-text-muted);
-    --c-code-bg-title: #f1f1f1;
+    --c-code-bg-title: #f0f0f0;
     --c-code-text-number: #a1a1a1;
-    --c-code-bg-highlight: rgba(16, 185, 129, 0.1);
+    --c-code-bg-highlight: rgba(153, 0, 0, 0.08); /* 匹配强调色 */
 
     --syntax-comment: #6a737d;
     --syntax-keyword: #d73a49;
@@ -26,37 +25,33 @@
     --syntax-number: #005cc5;
     --syntax-tag: #22863a;
 
-    /* -- 通用变量 -- */
-    --border-radius: 4px; /* 轻微增加圆角，更柔和 */
+    --border-radius: 4px;
 }
 
 html.dark {
-    /* -- 主题颜色: 深色模式 -- */
-    --c-bg: #121212; /* 页面背景 (柔和的深灰色) */
-    --c-bg-card: #181818; /* 卡片、代码块背景 (有细微区分) */
-    --c-text-base: #dddddd; /* 主要文字 (灰白色) */
-    --c-text-muted: #888888; /* 次要文字, 元数据 */
-    /* --c-accent: #48d892; 强调色 (链接等, 柔和且鲜明的绿色) */
-    --c-accent: #5eadf2;
-    /* --c-border: #2a2a2a; 边框 */
-    --c-border: #303030; /* [修复] 稍稍调亮边框，增加区分度 */
+    /* -- 深色模式: Modern Journal -- */
+    --c-bg: #121212; /* 标准的中性纯黑 */
+    --c-bg-card: #1e1e1e; /* 标准的卡片灰 */
+    --c-text-base: #e0e0e0;
+    --c-text-muted: #888888;
+    --c-accent: #e06666; /* 适配深色模式的浅红色，确保可读性 */
+    --c-border: #303030;
 
     /* -- 代码块 & 语法高亮: 深色模式 -- */
-    --c-code-bg: #222222; /* [修复] 调亮，使其从 #121212 和 #181818 中“浮”出来 */
+    --c-code-bg: #252525; /* 稍亮的标准代码块 */
     --c-code-text-title: var(--c-text-muted);
-    --c-code-bg-title: #1a1a1a; /* [修复] 调暗，使其与代码区 (#222) 形成清晰对比 */
-    --c-code-text-number: #777777; /* [修复] 调亮行号 (原 #666 太暗) */
-    --c-code-bg-highlight: rgba(72, 216, 146, 0.1);
+    --c-code-bg-title: #1a1a1a;
+    --c-code-text-number: #777777;
+    --c-code-bg-highlight: rgba(224, 102, 102, 0.1); /* 匹配强调色 */
 
-    --syntax-comment: #999999; /* [修复] 调亮注释 (原 #888) */
+    --syntax-comment: #999999;
     --syntax-keyword: #c792ea;
     --syntax-string: #86e5b3;
     --syntax-function: #82aaff;
     --syntax-number: #ffcb8b;
     --syntax-tag: #f07178;
 
-    /* [新增] 为行内代码定义单独变量 */
-    --c-code-inline-bg: #2a2a2a;
+    --c-code-inline-bg: #333333;
     --c-code-inline-text: #e0e0e0;
 }
 
@@ -605,4 +600,93 @@ code .token.class-name {
 }
 .post-content blockquote p:last-of-type::after {
     content: none;
+}
+
+/* ==========================================================================
+   9. Password Prompt (新组件样式)
+   ========================================================================== */
+
+/* 密码框主容器 */
+.password-prompt {
+    /* 使用卡片背景和边框，使其与正文区分开 */
+    background-color: var(--secondary-fill-color); /* --c-bg-card */
+    border: 1px solid var(--border-color);
+    /* 使用强调色作为左边框，使其看起来像一个 "提示" 块 */
+    border-left: 4px solid var(--accent-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 1.5rem 0; /* 与其他内容块（如代码块）保持一致的外边距 */
+}
+
+/* 提示文字 (例如 "请输入密码...") */
+.password-prompt .prompt-text {
+    margin-top: 0;
+    color: var(--secondary-text-color); /* --c-text-muted */
+    font-style: italic; /* 模仿你的 blockquote 样式 */
+    margin-bottom: 1rem; /* 与下面的表单拉开距离 */
+}
+
+/* 表单容器 */
+.password-prompt form {
+    display: flex;
+    flex-wrap: wrap; /* 在小屏幕上允许换行 */
+    gap: 0.5rem; /* 输入框和按钮之间的间距 */
+}
+
+/* 密码输入框 */
+.password-prompt input[type="password"] {
+    flex-grow: 1; /* 占据尽可能多的空间 */
+    flex-basis: 200px; /* 最小宽度 */
+
+    /* 基础样式 */
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+
+    /* 颜色 (来自你的变量) */
+    color: var(--primary-text-color);
+    background-color: var(--primary-fill-color); /* 使用主背景色 */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 输入框获取焦点时的样式 */
+.password-prompt input[type="password"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    /* 模仿你 .theme-toggle 的 focus 样式 */
+    box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.15); /* 红色光晕 */
+}
+
+/* 解锁按钮 */
+.password-prompt button {
+    padding: 0.5rem 1.25rem;
+    font-family: inherit;
+    font-weight: 600; /* 匹配你 .main-nav a 的字重 */
+    font-size: 1rem;
+
+    /* 颜色 (使用你的强调色) */
+    color: #ffffff; /* 亮色文字 */
+    background-color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+/* 按钮悬停效果 */
+.password-prompt button:hover {
+    opacity: 0.85;
+}
+
+/* 错误消息 */
+.password-prompt .error-message {
+    color: var(--accent-color); /* 使用强调色来显示错误 */
+    font-size: 0.9rem;
+    font-style: normal; /* 覆盖父级的 italic */
+    margin-top: 0.75rem;
+    margin-bottom: 0;
 }

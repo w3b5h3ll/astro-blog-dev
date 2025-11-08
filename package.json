@@ -9,15 +9,21 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/preact": "^4.1.1",
+        "@astrojs/react": "^4.4.2",
         "@astrojs/rss": "^4.0.12",
         "@astrojs/vercel": "^8.2.8",
         "@fontsource-variable/noto-sans-sc": "^5.2.9",
         "@fontsource-variable/open-sans": "^5.2.7",
         "@fontsource/fira-mono": "^5.2.7",
         "astro": "^5.14.1",
+        "crypto-js": "^4.2.0",
         "preact": "^10.27.2",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
         "rehype-pretty-code": "^0.14.1",
         "sharp": "^0.34.4"
+    },
+    "devDependencies": {
+        "@types/crypto-js": "^4.2.2"
     }
 }

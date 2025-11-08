@@ -1,7 +1,8 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-import preact from "@astrojs/preact";
+// import preact from "@astrojs/preact";
+import react from "@astrojs/react";
 import rehypePrettyCode from "rehype-pretty-code";
 
 import vercel from "@astrojs/vercel";
@@ -20,17 +21,21 @@ const prettyCodeOptions = {
 };
 // https://astro.build/config
 export default defineConfig({
-  // site: "https://w3b5h3ll.github.io",
-  site: "https://paulwang.vercel.app/",
-  integrations: [preact()],
+    // site: "https://w3b5h3ll.github.io",
+    site: "https://paulwang.vercel.app/",
+    integrations: [
+        // preact(),
 
-  markdown: {
-      // syntaxHighlight: "shiki",
-      syntaxHighlight: false,
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
-  },
+        react(),
+    ],
 
-  adapter: vercel(),
+    markdown: {
+        // syntaxHighlight: "shiki",
+        syntaxHighlight: false,
+        rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    },
+
+    adapter: vercel(),
 });
 // shikiConfig: {
 //     // 从 https://github.com/shikijs/shiki/blob/main/docs/themes.md 选择你喜欢的主题
