@@ -1,0 +1,120 @@
+---
+/* src/components/BackToTop.astro */
+---
+
+<button id='back-to-top' aria-label='回到顶部' class='back-to-top'>
+    <svg
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+    >
+        <path d='M18 15l-6-6-6 6'></path>
+    </svg>
+</button>
+
+<style>
+    .back-to-top {
+        /* 固定定位：右下角 */
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 50;
+
+        /* 尺寸与形状 */
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%; /* 圆形 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* 颜色风格 (使用你的全局变量) */
+        background-color: var(--c-bg-card);
+        border: 1px solid var(--border-color);
+        color: var(--secondary-text-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        /* 初始状态：隐藏 */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+
+        /* 动画过渡 */
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    /* 悬停状态 */
+    .back-to-top:hover {
+        color: var(--accent-color); /* 悬停时变红/强调色 */
+        border-color: var(--accent-color);
+        transform: translateY(-2px); /* 微微上浮 */
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 显示状态 (由 JS 控制) */
+    .back-to-top.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* SVG 图标大小 */
+    .back-to-top svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* 移动端调整：避免挡住内容，稍微改小一点 */
+    @media (max-width: 768px) {
+        .back-to-top {
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+</style>
+
+<script>
+    // 逻辑封装，支持 Astro View Transitions
+    function initBackToTop() {
+        const backToTopButton = document.getElementById("back-to-top");
+
+        if (!backToTopButton) return;
+
+        // 1. 点击回到顶部
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth", // 平滑滚动
+            });
+        });
+
+        // 2. 监听滚动，控制显示/隐藏
+        const toggleVisibility = () => {
+            if (window.scrollY > 300) {
+                // 滚动超过 300px 显示
+                backToTopButton.classList.add("is-visible");
+            } else {
+                backToTopButton.classList.remove("is-visible");
+            }
+        };
+
+        // 添加监听器
+        window.addEventListener("scroll", toggleVisibility);
+
+        // 初始化检查一次（防止刷新页面后留在中间按钮不显示）
+        toggleVisibility();
+    }
+
+    // 立即运行
+    initBackToTop();
+
+    // 如果你使用了 Astro 的 View Transitions，需要重新绑定事件
+    document.addEventListener("astro:page-load", initBackToTop);
+</script>

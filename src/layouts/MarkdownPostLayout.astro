@@ -8,6 +8,8 @@ const { AES, enc } = CryptoJS;
 
 import PasswordPrompt from "../components/PasswordPrompt.jsx";
 
+import BackToTop from "../components/BackToTop.astro";
+
 // 1. 首先过滤出我们需要显示的标题 (h2, h3)
 const filteredHeadings = headings.filter(
     (heading: any) => heading.depth > 1 && heading.depth < 4
@@ -78,11 +80,13 @@ if (encrypted && passwordKey) {
             )
         }
 
-        <article class='post-content'>
+        <article
+            class='post-content prose prose-slate dark:prose-invert mx-auto p-4'
+        >
             {
                 encrypted && encryptedContent && correctPassword ? (
                     <PasswordPrompt
-                        client:only="react"
+                        client:only='react'
                         encryptedContent={encryptedContent}
                         correctPassword={correctPassword}
                     />
@@ -106,6 +110,11 @@ if (encrypted && passwordKey) {
         /* align-items: start; */
         /* --- 或者，使用这一行代码 --- */
         align-items: baseline;
+
+        /* [关键修复 1] 必须加这三行！让这一层 Grid 也能正确收缩 */
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     /* --- 2. 文章头部样式 --- */
@@ -133,6 +142,16 @@ if (encrypted && passwordKey) {
     .post-content {
         /* 正文区的样式，例如行高、段落间距等 */
         line-height: 1.8;
+
+        /* [关键修复 2] 强制约束 Article 的宽度 */
+        /* 因为你用了 prose mx-auto，这里必须限制最大宽度为 100% */
+        width: 100%;
+        max-width: 100%;
+        min-width: 0; /* 再次强调：允许收缩 */
+
+        /* 额外保险：防止 padding 撑爆 (虽然全局应该有了，但这里加更稳) */
+        box-sizing: border-box;
+        overflow-x: hidden; /* 防止正文内的其他怪异元素溢出 */
     }
 
     /* 为正文中的标题、段落等元素设置统一样式 */
@@ -144,6 +163,15 @@ if (encrypted && passwordKey) {
 
     .post-content > :global(p) {
         margin-bottom: 1.5rem;
+    }
+
+    /* 专门针对正文内的代码块进行最后一道防线加固 */
+    .post-content :global(pre),
+    .post-content :global(code) {
+        white-space: pre-wrap; /* 允许换行，或者保留 pre */
+        word-break: break-all; /* 强制打断长单词 */
+        max-width: 100%; /* 绝不许超过父容器 */
+        overflow-x: auto; /* 允许滚动 */
     }
 
     /* --- 4. 目录 (TOC) 样式 --- */
@@ -235,5 +263,123 @@ if (encrypted && passwordKey) {
         .post-toc {
             /* display: none; 在移动端隐藏右侧目录 */
         }
+    }
+
+    /* ==========================================================================
+   【修正版】文章内表格样式美化 (使用 :global 穿透作用域)
+   ========================================================================== */
+
+    /* 1. 表格整体容器 */
+    .post-content :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2.5rem 0;
+        /* font-size: 0.95rem; */
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        display: block; /* 某些极端情况下防止溢出，通常 table-layout: fixed 也行 */
+        overflow-x: auto; /* 允许表格在极小屏幕下横向滚动 */
+    }
+
+    /* 2. 表头 (thead) 样式 */
+    .post-content :global(thead tr) {
+        background-color: var(--c-bg-card);
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .post-content :global(th) {
+        font-weight: 700;
+        text-align: left;
+        color: var(--primary-text-color);
+    }
+
+    /* 3. 单元格 (th 和 td) 通用样式 */
+    .post-content :global(th),
+    .post-content :global(td) {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        word-break: break-word; /* 防止长单词撑破 */
+    }
+
+    /* 可选：去掉最外层边框，看起来更干净 */
+    .post-content :global(table tr:first-child th),
+    .post-content :global(table tr:first-child td) {
+        border-top: none;
+    }
+    .post-content :global(table tr:last-child td) {
+        border-bottom: none;
+    }
+    .post-content :global(table tr th:first-child),
+    .post-content :global(table tr td:first-child) {
+        border-left: none;
+    }
+    .post-content :global(table tr th:last-child),
+    .post-content :global(table tr td:last-child) {
+        border-right: none;
+    }
+
+    /* 4. 斑马纹 */
+    .post-content :global(tbody tr:nth-child(even)) {
+        background-color: rgba(0, 0, 0, 0.02); /* 极淡的灰色 */
+    }
+
+    /* 5. 悬停效果 */
+    .post-content :global(tbody tr:hover) {
+        background-color: rgba(0, 0, 0, 0.05);
+        transition: background-color 0.2s ease;
+    }
+
+    /* ==========================================================================
+   深色模式适配
+   ========================================================================== */
+    :global(html.dark) .post-content :global(table) {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    :global(html.dark) .post-content :global(thead tr) {
+        background-color: var(--c-code-bg); /* 深色模式下表头深一点 */
+    }
+
+    :global(html.dark) .post-content :global(tbody tr:nth-child(even)) {
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    :global(html.dark) .post-content :global(tbody tr:hover) {
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ==========================================================================
+   【新增】Mark 高亮标签美化
+   ========================================================================== */
+
+    .post-content :global(mark) {
+        /* 1. 圆角 (核心需求)：使用你全局定义的 4px 圆角 */
+        border-radius: var(--border-radius);
+
+        /* 2. 内边距：让背景色向外扩一点，这样圆角才看得出来，也不会挤到文字 */
+        padding: 0.1em 0.3em;
+        margin: 0 0.1em; /* 左右稍微留点白 */
+
+        /* 3. 背景色：
+       这里推荐使用柔和的“复古黄”，配合你的 Journal 风格。
+       不要用纯黄 (yellow)，太刺眼。
+    */
+        background-color: rgba(255, 215, 0, 0.25);
+
+        /* 文字颜色保持继承，或者你可以强制设为深色 */
+        color: inherit;
+
+        /* 4. 其它优化 */
+        vertical-align: baseline;
+        -webkit-box-decoration-break: clone; /* 关键：如果高亮换行了，保证两行都有圆角 */
+        box-decoration-break: clone;
+    }
+
+    /* 深色模式适配 */
+    :global(html.dark) .post-content :global(mark) {
+        /* 深色模式下，背景色需要更透明一点，或者稍微亮一点以便看清 */
+        background-color: rgba(255, 215, 0, 0.15);
+        color: var(--primary-text-color);
     }
 </style>
