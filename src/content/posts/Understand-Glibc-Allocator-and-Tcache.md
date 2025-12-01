@@ -57,7 +57,7 @@ glibc 分配器的核心目标是<mark style="background: #FF5582A6;">通用性<
 
 malloc_state
 
-```C
+```c
 struct malloc_state
 {
   /* Serialize access.  */
@@ -112,7 +112,7 @@ struct malloc_state
 
 heap_info
 
-```C
+```c
 /*
 	A heap is a single contiguous memory region holding (coalesceable)
 	malloc_chunks.  It is allocated with mmap() and always starts at an
@@ -138,7 +138,7 @@ typedef struct _heap_info
 
 #### 内存扩展机制 ：sysmalloc
 
-```C
+```c
 
 /*
 	sysmalloc handles malloc cases requiring more memory from the system.   On entry, it is assumed that 	av->top does not have enough   space to service request for nb bytes, thus requiring that av->top   	be extended or replaced.
@@ -175,7 +175,7 @@ chunk 数据结构
 
 - https://elixir.bootlin.com/glibc/glibc-2.26.9000/source/malloc/malloc.c#L1057
 
-```C
+```c
 struct malloc_chunk;
 typedef struct malloc_chunk* mchunkptr;
 
@@ -204,7 +204,7 @@ Allocated chunk
 - `mem`: 返回给用户的指针
 - `nextchunk`: 下一个 chunk 的开始
 
-```text
+```plaintext
 	chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	    	|             Size of previous chunk, if unallocated (P clear)  |
 	    	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -223,7 +223,7 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Free chunks
 
-```text
+```plaintext
     Free chunks are stored in circular doubly-linked lists, and look like this:
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	    	|             Size of previous chunk, if unallocated (P clear)  |
@@ -253,7 +253,7 @@ heap_for_ptr (ptr)
 - glibc 分配 Thread Heap 时，按照 `HEAP_MAX_SIXE` 进行对齐分配
 - Heap 的起始地址是对齐的。`heap_info` 存放于 Heap 内存段的开头，那么，对于该 Heap 内的任何一个 Chunk 指针，低位地址屏蔽掉后，就可以得出 `heap_base`
 
-```C
+```c
 /* 假设 HEAP_MAX_SIZE 是 64MB (0x4000000) */
 /* ~(HEAP_MAX_SIZE - 1) 会生成一个高位全1，低位全0的掩码 */
 heap_base = chunk_ptr & ~(HEAP_MAX_SIZE - 1);
@@ -263,7 +263,7 @@ heap_base = chunk_ptr & ~(HEAP_MAX_SIZE - 1);
 
 glibc 通过 `MALLOC_ALIGNMENT` 宏定义了全局内存对齐基准
 
-```C
+```c
 #define MALLOC_ALIGNMENT       (2 * SIZE_SZ < __alignof__ (long double) \
                                ? __alignof__ (long double) : 2 * SIZE_SZ)
     # SIZE_ZE: sizeof(size_t): 8 bytes
@@ -280,7 +280,7 @@ glibc 通过 `MALLOC_ALIGNMENT` 宏定义了全局内存对齐基准
 
 request2size，将 req 转为实际需要分配的 Chunk 大小
 
-```C
+```c
 #define request2size(req)                                         \
   (((req) + SIZE_SZ + MALLOC_ALIGN_MASK < MINSIZE) ?             \
    MINSIZE :                                                      \
@@ -317,7 +317,7 @@ request2size，将 req 转为实际需要分配的 Chunk 大小
 
 这里只关注 `malloc_state` 中，有关 fastbins 与 bins 数组的部分
 
-```C
+```c
 struct malloc_state
 {
   // ...
@@ -447,7 +447,7 @@ Unsorted Bin 的清理和分发主要发生在  `_int_malloc`  的核心循环
 
 #### Fast Bins - Cache Layer
 
-```C
+```c
 /* The maximum fastbin request size we support */
 #define MAX_FAST_SIZE     (80 * SIZE_SZ / 4)
 	# 64bit: MAX_FAST_SIZE = 160
@@ -509,7 +509,7 @@ Thread Local Cache, tcache 在 `glibc2.26` 时被引入。Ubuntu 17.10 之后引
 
 tcache_entry
 
-```C
+```c
 /* We overlay this structure on the user-data portion of a chunk when
    the chunk is stored in the per-thread cache.  */
 typedef struct tcache_entry
@@ -527,7 +527,7 @@ typedef struct tcache_entry
 - 每个线程私有的 Tcache 管理中枢
 - 指向该结构体的指针，存放于 TLS（Thread Local Storage）中，无需加锁，速度很快
 
-```C
+```c
 /* There is one of these for each thread, which contains the
    per-thread cache (hence "tcache_perthread_struct").  Keeping
    overall size low is mildly important.  Note that COUNTS and ENTRIES
@@ -545,7 +545,7 @@ typedef struct tcache_perthread_struct
 
 // 最多64个bin
 /* We want 64 entries.  This is an arbitrary limit, which tunables can reduce.  */
-// From 32byts to 1040 bytes, Step: 15bytes
+// From 32byts to 1040 bytes, Step: 16bytes
 # define TCACHE_MAX_BINS        64
 ```
 
@@ -559,8 +559,30 @@ typedef struct tcache_perthread_struct
 
 默认情况下，tcache 中，每个 bin 中，最大 chunk：7
 
-```C
+```c
+#if USE_TCACHE
+/* We want 64 entries.  This is an arbitrary limit, which tunables can reduce.  */
+# define TCACHE_MAX_BINS		64
+# define MAX_TCACHE_SIZE	tidx2usize (TCACHE_MAX_BINS-1)
 
+/* Only used to pre-fill the tunables.  */
+# define tidx2usize(idx)	(((size_t) idx) * MALLOC_ALIGNMENT + MINSIZE - SIZE_SZ)
+
+/* When "x" is from chunksize().  */
+# define csize2tidx(x) (((x) - MINSIZE + MALLOC_ALIGNMENT - 1) / MALLOC_ALIGNMENT)
+/* When "x" is a user-provided size.  */
+# define usize2tidx(x) csize2tidx (request2size (x))
+
+/* With rounding and alignment, the bins are...
+   idx 0   bytes 0..24 (64-bit) or 0..12 (32-bit)
+   idx 1   bytes 25..40 or 13..20
+   idx 2   bytes 41..56 or 21..28
+   etc.  */
+
+/* This is another arbitrary limit, which tunables can change.  Each
+   tcache bin will hold at most this number of chunks.  */
+# define TCACHE_FILL_COUNT 7
+#endif
 
 /* This is another arbitrary limit, which tunables can change.  Each
    tcachebin will hold at most this number of chunks.  */
@@ -612,7 +634,7 @@ typedef struct tcache_perthread_struct
 
 #### Source Code
 
-```C
+```c
 void
 __libc_free (void *mem)
 {
@@ -1013,7 +1035,7 @@ Chunk(addr=0xaaaaaaac12f0, size=0x20d20, flags=PREV_INUSE | IS_MMAPPED | NON_MAI
 
 分析 Thread Arena
 
-```C
+```c
 // test.c
 
 // #include <stdlib.h>
@@ -1270,7 +1292,7 @@ server: Apache/2.4.52 (Ubuntu)
 
 针对本次实验，使用一种 hack 的方式，伪造符号
 
-```C
+```c
 // fake_heap.c
 #include <stddef.h>
 

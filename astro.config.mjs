@@ -34,6 +34,16 @@ export default defineConfig({
         // syntaxHighlight: "shiki",
         syntaxHighlight: false,
         rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+        // shikiConfig: {
+        //     themes: {
+        //         light: "everforest-dark",
+        //         dark: "everforest-dark",
+        //     },
+        //     // 启用自动换行，避免代码块出现水平滚动条
+        //     wrap: true,
+        //     // (可选) 显示行号
+        //     // showLineNumbers: true,
+        // },
     },
 
     adapter: vercel(),
