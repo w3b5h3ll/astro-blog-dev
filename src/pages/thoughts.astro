@@ -1,0 +1,263 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import thoughtsData from "../data/thoughts.js";
+import PasswordPrompt from "../components/PasswordPrompt.jsx";
+import CryptoJS from "crypto-js";
+
+// 配置页面元数据
+const pageTitle = "Thoughts";
+const { AES } = CryptoJS;
+
+// 配置参数
+const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
+// 建议还是走环境变量，这里为了演示保留硬编码
+// const SECRET_KEY = import.meta.env.SECRET_PASSWORD;
+const SECRET_KEY = "secret";
+const now = new Date();
+
+// 1. 预处理数据：增加格式化后的日期字段
+const allThoughts = thoughtsData.map((item) => {
+    const itemDate = new Date(item.date);
+    return {
+        ...item,
+        dateObj: itemDate,
+        dateStr:
+            itemDate.toLocaleDateString("en-CA") +
+            " " +
+            itemDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            }),
+        timestamp: itemDate.getTime(),
+    };
+});
+
+// 2. 按时间倒序排序
+allThoughts.sort((a, b) => b.timestamp - a.timestamp);
+
+// 3. 分离数据：明文区 vs 加密区
+const recentThoughts = [];
+const expiredThoughts = [];
+
+allThoughts.forEach((item) => {
+    if (now.getTime() - item.timestamp > THREE_DAYS_MS) {
+        expiredThoughts.push(item);
+    } else {
+        recentThoughts.push(item);
+    }
+});
+
+// 4. 处理加密区：将过期数据拼接为 HTML 字符串，然后整体加密
+// 这里我们手动构建与下方 Astro 模板一致的 HTML 结构
+let encryptedBlock = null;
+
+if (expiredThoughts.length > 0 && SECRET_KEY) {
+    const expiredHtml = expiredThoughts
+        .map(
+            (item) => `
+        <div class="thought-card expired-item">
+            <div class="thought-meta">
+                <time>${item.dateStr}</time>
+                <span class="lock-icon" style="font-size:0.75em; opacity:0.7;">🔓 Restored</span>
+            </div>
+            <div class="thought-content">
+                <p>${item.content}</p>
+            </div>
+        </div>
+    `
+        )
+        .join(""); // 将所有过期卡片拼接在一起
+
+    encryptedBlock = AES.encrypt(expiredHtml, SECRET_KEY).toString();
+}
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <div class='post-layout-grid thoughts-layout'>
+        <header class='post-header'>
+            <h1>{pageTitle}</h1>
+            <div class='post-meta'>
+                <span>Capture fleeting ideas.</span>
+                <span>3日可见 (3 Days Visibility)</span>
+            </div>
+        </header>
+
+        <div class='thoughts-list prose prose-slate dark:prose-invert mx-auto'>
+            {/* 第一部分：显示 3 天内的内容 (明文) */}
+            {
+                recentThoughts.map((item) => (
+                    <div class='thought-card'>
+                        <div class='thought-meta'>
+                            <time>{item.dateStr}</time>
+                            <span class='fresh-icon'>✨ New</span>
+                        </div>
+                        <div class='thought-content'>
+                            <p>{item.content}</p>
+                        </div>
+                    </div>
+                ))
+            }
+
+            {/* 第二部分：显示分割线和加密框 (如果存在过期内容) */}
+            {
+                encryptedBlock && (
+                    <div class='archive-section'>
+                        <div class='archive-divider'>
+                            <span>
+                                Expired Thoughts ({expiredThoughts.length})
+                            </span>
+                        </div>
+
+                        <div class='password-wrapper'>
+                            <div class='archive-intro'>
+                                下方内容已封存，请输入密钥查看历史灵感。
+                            </div>
+                            {/* 这里的组件解密后，会把上面的 expiredHtml 渲染出来 */}
+                            <PasswordPrompt
+                                client:visible
+                                encryptedContent={encryptedBlock}
+                                correctPassword={SECRET_KEY}
+                            />
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .post-layout-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .post-header {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+    }
+
+    .post-meta {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--secondary-text-color);
+    }
+
+    .thoughts-list {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* --- 卡片样式 --- */
+    /* 注意：这里使用了 :global() 因为解密后的 HTML 是动态插入的 */
+    /* 这样可以确保解密出来的 div 也能吃到样式 */
+    :global(.thought-card) {
+        padding: 0 0 2rem 1.5rem;
+        border-left: 2px solid var(--border-color);
+        position: relative;
+        margin-bottom: 0;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* 时间轴小圆点 */
+    :global(.thought-card::before) {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 0.35rem; /* 微调对齐日期 */
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border-color);
+        transition: background-color 0.3s ease;
+    }
+
+    :global(.thought-card:hover::before) {
+        background: var(--accent-color, #3b82f6);
+    }
+
+    /* 针对过期内容的特殊样式（变灰一点，体现历史感） */
+    :global(.thought-card.expired-item) {
+        opacity: 0.85;
+    }
+    :global(.thought-card.expired-item::before) {
+        background: var(--border-color); /* 保持灰色 */
+    }
+
+    :global(.thought-meta) {
+        font-size: 0.85rem;
+        color: var(--secondary-text-color);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .fresh-icon {
+        color: var(--accent-color, #3b82f6);
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    :global(.thought-content p) {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        line-height: 1.7;
+    }
+
+    /* --- 归档区域样式 --- */
+    .archive-section {
+        margin-top: 2rem;
+    }
+
+    .archive-divider {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        color: var(--secondary-text-color);
+        font-size: 0.85rem;
+    }
+
+    .archive-divider::before,
+    .archive-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px dashed var(--border-color);
+    }
+
+    .archive-divider span {
+        padding: 0 1rem;
+    }
+
+    .archive-intro {
+        font-size: 0.9rem;
+        color: var(--secondary-text-color);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .password-wrapper {
+        padding: 2rem 1rem;
+        background: var(--c-bg-card, rgba(0, 0, 0, 0.02));
+        border-radius: var(--border-radius, 4px);
+        border: 1px dashed var(--border-color);
+        text-align: center; /* 让密码框居中 */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

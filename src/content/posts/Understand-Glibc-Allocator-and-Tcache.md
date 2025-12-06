@@ -606,7 +606,7 @@ typedef struct tcache_perthread_struct
         - 否则，如果有对应的 <mark style="background: #FF5582A6;">smallbin</mark> 存在，进行分配（伺机从 smallbin 填充 tcache）
     2. Resolve all the deferred frees（Fast Bin 延迟 free）
         - 遍历 fastbin，清除这些 chunk 的元信息，让这些块处于 free 状态
-        - Consolidate: 合并，如果这些 chunk 的物理内存上是连续的，那么就会被合并，并且放入 <mark style="background: #FF5582A6;">unsorted bin</mark>。
+        - Consolidate: 合并，如果这些 chunk 的物理内存上是连续的，那么就会被合并，并且放入 <mark style="background: #FF5582A6;">unsorted bin</mark>。（触发 fastbin 进行合并的时机）
     3. 遍历 unsorted bin, 如果有匹配的，那么进行分配；否则就将 unsorted bin 中的 chunk 移入到对应的 small/largebins 中。（伺机将部分 small chunk 填充至 tcache 中）
     4. 遍历 <mark style="background: #FF5582A6;">largebin</mark>，如果匹配，进行分配
     5. 创建一个新的 chunk
@@ -627,7 +627,7 @@ typedef struct tcache_perthread_struct
 6. 否则，获取 Arena 锁，执行下面的策略
     1. 如果 chunk 与 fastbin 匹配，那么放入
     2. 如果 chunk_size > 64KB，对 fastbin 中的 chunk 进行合并，并放入 unsorted bin
-    3. 对 chunk 与其相邻的物理 chunk 进行向前，向后合并
+    3. 对 chunk 与其相邻的物理 chunk 进行向前，向后合并（统一内存回收流程：small/large/unsorted bin）
         1. 如果合并后的 chunk 紧邻 top chunk，那么直接并入 Top Chunk
         2. 否则放入 unsorted bin 中
 7. Trim: 如果 Top Chunk 很大，超过收缩阈值 (trim_threshold)，调用 systrim
@@ -833,6 +833,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)
   */
 
   // 如果非小chunk，且无法进入Cache,进入标准的回收流程
+  // small/large/unsorted bin开始合并
   else if (!chunk_is_mmapped(p)) {
     // 加锁
     if (! have_lock) {
@@ -896,7 +897,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)
 	clear_inuse_bit_at_offset(nextchunk, 0);
 
 
-	// 放入 unsorted bin
+	// 最后统一放入 unsorted bin
       /*
 	Place the chunk in unsorted chunk list. Chunks are
 	not placed into regular bins until after they have
