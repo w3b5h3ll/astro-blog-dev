@@ -5,8 +5,12 @@
 
 export default [
     {
+        date: "2025-12-08T13:20:00",
+        content: "tput cnorm恢复命令行光标",
+    },
+    {
         date: "2025-12-06T18:11:00",
-        content: "Tailscale 打洞真不错啊，远程ssh不是很卡",
+        content: "Tailscale 打洞真不错啊，远程ssh不是很卡。必须使用IPv6，这样可以直连，负责就会触发中继，延迟20ms",
     },
     {
         date: "2025-12-04T15:54:00",
