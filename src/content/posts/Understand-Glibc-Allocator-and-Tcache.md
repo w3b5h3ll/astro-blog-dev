@@ -1041,8 +1041,6 @@ Chunk(addr=0xaaaaaaac12f0, size=0x20d20, flags=PREV_INUSE | IS_MMAPPED | NON_MAI
 
 // #include <stdlib.h>
 
-
-
 // int main() {
 
 // void *p1 = malloc(0x10); // 分配一个小块
@@ -1053,8 +1051,6 @@ Chunk(addr=0xaaaaaaac12f0, size=0x20d20, flags=PREV_INUSE | IS_MMAPPED | NON_MAI
 
 // }
 
-
-
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -1063,79 +1059,55 @@ Chunk(addr=0xaaaaaaac12f0, size=0x20d20, flags=PREV_INUSE | IS_MMAPPED | NON_MAI
 
 #include <unistd.h>
 
-
-
 void *thread_function(void *arg)
-
 {
 
-printf("[*] 子线程正在运行...\n");
+    printf("[*] 子线程正在运行...\n");
 
+    // 在子线程中分配内存
 
+    // 这将触发创建一个新的 Arena (Non-Main Arena)
 
-// 在子线程中分配内存
+    // 这个 Chunk 将位于一个 mmap 出来的 64MB 区域中
 
-// 这将触发创建一个新的 Arena (Non-Main Arena)
+    void *chunk = malloc(0x40);
 
-// 这个 Chunk 将位于一个 mmap 出来的 64MB 区域中
+    printf("[*] 子线程 Chunk 地址: %p\n", chunk);
 
-void *chunk = malloc(0x40);
+    printf("[!] 现在用 GDB 中断下来查看吧! (正在休眠...)\n");
 
+    // 休眠足够长的时间供你调试
 
+    sleep(1000);
 
-printf("[*] 子线程 Chunk 地址: %p\n", chunk);
+    free(chunk);
 
-printf("[!] 现在用 GDB 中断下来查看吧! (正在休眠...)\n");
-
-
-
-// 休眠足够长的时间供你调试
-
-sleep(1000);
-
-
-
-free(chunk);
-
-return NULL;
-
+    return NULL;
 }
-
-
 
 int main()
-
 {
 
-pthread_t t1;
+    pthread_t t1;
 
+    printf("[*] 主线程 PID: %d\n", getpid());
 
+    // 主线程也分配一点，确保 Main Arena 存在
 
-printf("[*] 主线程 PID: %d\n", getpid());
+    malloc(0x10);
 
+    // 创建子线程
 
+    pthread_create(&t1, NULL, thread_function, NULL);
 
-// 主线程也分配一点，确保 Main Arena 存在
+    // 等待子线程结束
 
-malloc(0x10);
+    pthread_join(t1, NULL);
 
-
-
-// 创建子线程
-
-pthread_create(&t1, NULL, thread_function, NULL);
-
-
-
-// 等待子线程结束
-
-pthread_join(t1, NULL);
-
-
-
-return 0;
-
+    return 0;
 }
+
+
 ```
 
 ```bash

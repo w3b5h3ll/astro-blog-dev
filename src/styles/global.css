@@ -11,62 +11,67 @@
    1. Root & Variables (已根据 antfu.me 风格优化)
    ========================================================================== */
 
+/* ==========================================================================
+   1. Root & Variables (已根据 beacox.space / Vitesse 风格优化)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Root & Variables (已根据截图精准还原：深冷午夜风)
+   ========================================================================== */
+
 :root {
-    /* -- 浅色模式: Modern Journal -- */
-    --c-bg: #ffffff; /* 纯白背景，高对比度 */
-    --c-bg-card: #f7f7f7; /* 卡片使用非常浅的灰色 */
-    --c-text-base: #111111; /* 纯黑文本，最清晰 */
-    --c-text-muted: #555555;
-    --c-accent: #990000; /* 经典的牛津红/Maroon */
-    --c-border: #e5e5e5;
+    /* -- 浅色模式: 保持整洁明亮 -- */
+    --c-bg: #ffffff;
+    --c-bg-card: #f3f4f6;
+    --c-text-base: #1f2937;
+    --c-text-muted: #6b7280;
+    --c-accent: #3b82f6; /* 经典的蓝色强调 */
+    --c-border: #e5e7eb;
 
-    /* -- 代码块 & 语法高亮: 浅色模式 -- */
-    --c-code-bg: var(--c-bg-card);
-    --c-code-text-title: var(--c-text-muted);
-    --c-code-bg-title: #f0f0f0;
-    --c-code-text-number: #a1a1a1;
-    --c-code-bg-highlight: rgba(153, 0, 0, 0.08); /* 匹配强调色 */
+    --c-code-bg: #f9fafb;
+    --c-code-text-title: #4b5563;
+    --c-code-bg-title: #f3f4f6;
+    --c-code-text-number: #9ca3af;
+    --c-code-bg-highlight: rgba(59, 130, 246, 0.1);
 
-    --syntax-comment: #6a737d;
-    --syntax-keyword: #d73a49;
-    --syntax-string: #032f62;
-    --syntax-function: #6f42c1;
-    --syntax-number: #005cc5;
-    --syntax-tag: #22863a;
+    --syntax-comment: #9ca3af;
+    --syntax-keyword: #2563eb;
+    --syntax-string: #059669;
+    --syntax-function: #7c3aed;
+    --syntax-number: #d97706;
+    --syntax-tag: #dc2626;
 
-    --border-radius: 4px;
+    --border-radius: 6px;
 }
 
 html.dark {
-    /* -- 深色模式: Modern Journal -- */
-    --c-bg: #121212; /* 标准的中性纯黑 */
-    --c-bg-card: #1e1e1e; /* 标准的卡片灰 */
-    --c-text-base: #e0e0e0;
-    --c-text-muted: #888888;
-    --c-accent: #e06666; /* 适配深色模式的浅红色，确保可读性 */
-    --c-border: #303030;
+    /* -- 深色模式: 根据截图提取的午夜蓝风格 -- */
+    --c-bg: #111827;        /* 截图背景：极深藏青色 */
+    --c-bg-card: #1f2937;   /* 稍微亮一点的灰色/蓝色用于卡片 */
+    --c-text-base: #f3f4f6; /* 近乎纯白的浅灰文字 */
+    --c-text-muted: #9ca3af;/* 辅助文字 */
+    --c-accent: #60a5fa;    /* 截图中的天蓝色强调色 */
+    --c-border: #374151;    /* 暗色边框 */
 
-    /* -- 代码块 & 语法高亮: 深色模式 -- */
-    --c-code-bg: #252525; /* 稍亮的标准代码块 */
-    --c-code-text-title: var(--c-text-muted);
-    --c-code-bg-title: #1a1a1a;
-    --c-code-text-number: #777777;
-    --c-code-bg-highlight: rgba(224, 102, 102, 0.1); /* 匹配强调色 */
+    /* -- 代码块 & 语法高亮: 匹配截图 -- */
+    --c-code-bg: #161b22;   /* 代码块背景色 */
+    --c-code-text-title: #9ca3af;
+    --c-code-bg-title: #0d1117;
+    --c-code-text-number: #4b5563;
+    --c-code-bg-highlight: rgba(96, 165, 250, 0.15); /* 蓝色高亮 */
 
-    --syntax-comment: #999999;
-    --syntax-keyword: #c792ea;
-    --syntax-string: #86e5b3;
-    --syntax-function: #82aaff;
-    --syntax-number: #ffcb8b;
-    --syntax-tag: #f07178;
+    --syntax-comment: #6b7280;
+    --syntax-keyword: #93c5fd; /* 浅蓝关键词 */
+    --syntax-string: #a5f3fc;  /* 青色字符串 */
+    --syntax-function: #60a5fa;
+    --syntax-number: #fbbf24;
+    --syntax-tag: #f87171;
 
-    --c-code-inline-bg: #333333;
-    --c-code-inline-text: #e0e0e0;
+    --c-code-inline-bg: #1e293b; /* 行内代码背景 */
+    --c-code-inline-text: #60a5fa; /* 行内代码蓝色文字 */
 }
 
-/* 将旧变量映射到新变量，以确保现有样式可以无缝工作。
-   这一部分是为了兼容你原有的 CSS 类名，无需修改。
-*/
+/* 映射兼容层 (无需修改) */
 :root {
     --primary-fill-color: var(--c-bg);
     --secondary-fill-color: var(--c-bg-card);
@@ -96,7 +101,9 @@ body {
     /* 原有字体，若想保留可取消下面的注释 */
     /* font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
         sans-serif; */
-    font-family: Roboto, sans-serif, "Noto Sans SC", sans-serif;
+    font-family: "Roboto", sans-serif, "Noto Sans SC", sans-serif;
+    /* font-family: "Playfair Display", serif, "Noto Serif SC", serif, important; */
+    /* font-family: "Merriweather", serif, "Noto Serif SC", serif, important; */
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
@@ -233,7 +240,9 @@ main > .content-wrapper {
 
 .main-nav .theme-toggle button:focus,
 .main-nav .theme-toggle [id="themeToggle"]:focus {
-    box-shadow: 0 0 0 3px rgba(72, 216, 146, 0.15); /* 使用新的强调色光晕 */
+    /* box-shadow: 0 0 0 3px rgba(72, 216, 146, 0.15); 使用新的强调色光晕 */
+    /* box-shadow: 0 0 0 3px rgba(0, 220, 130, 0.2); */
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
 }
 
 /* Mobile Navigation Toggle */
@@ -262,9 +271,11 @@ main > .content-wrapper {
 .tag-item {
     display: inline-block;
     background-color: var(--primary-fill-color);
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); */
+    border: 1px solid var(--accent-color); /* 使用蓝色边框 */
+    color: var(--accent-color);
     border-radius: var(--border-radius);
-    color: var(--secondary-text-color);
+    /* color: var(--secondary-text-color); */
     padding: 8px 16px;
     text-decoration: none;
     font-size: 0.9rem;
@@ -688,7 +699,9 @@ code .token.class-name {
     outline: none;
     border-color: var(--accent-color);
     /* 模仿你 .theme-toggle 的 focus 样式 */
-    box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.15); /* 红色光晕 */
+    /* box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.15); 红色光晕 */
+    /* box-shadow: 0 0 0 3px rgba(0, 220, 130, 0.2); */
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
 }
 
 /* 解锁按钮 */
