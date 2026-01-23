@@ -4,30 +4,53 @@
 // 1. 从 `astro:content` 导入 `getCollection`
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogPost from "../components/BlogPost.astro";
 
 // 2. 使用 `await getCollection("posts")` 获取所有文章
 //    "posts" 是你在 `src/content/` 目录下的文件夹名
 const allPosts = await getCollection("posts");
 allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const pageTitle = "Blog";
+
+// 按年份分组
+const postsByYear = allPosts.reduce((acc: any, post: any) => {
+    const year = new Date(post.data.pubDate).getFullYear();
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+}, {});
+
+const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
 ---
 
 <BaseLayout pageTitle={pageTitle}>
     <h1>Blog</h1>
     <hr class="astro-hr" />
-    <ul style='padding-left: 0;'>
+    <div class='archive-list'>
         {
-            allPosts.map((post:any) => (
-                <BlogPost
-                    // 3. `post.frontmatter` 变为 `post.data`
-                    title={post.data.title}
-                    // 4. `post.url` 需要用 `post.slug` 手动构建
-                    url={`/posts/${post.slug}/`}
-                    author={post.data.author}
-                    date={post.data.pubDate}
-                />
+            sortedYears.map((year: string) => (
+                <>
+                    <h3 class='group-title'>{year}</h3>
+                    {
+                        postsByYear[year].map((post: any) => {
+                            const dateObject = new Date(post.data.pubDate);
+                            const formattedDate = dateObject.toLocaleDateString("zh-CN", {
+                                month: "2-digit",
+                                day: "2-digit",
+                            });
+                            return (
+                                <article class='archive-item'>
+                                    <a href={`/posts/${post.slug}/`} class="archive-item-link">
+                                        {post.data.title}
+                                    </a>
+                                    <span class='archive-item-date'>{formattedDate}</span>
+                                </article>
+                            );
+                        })
+                    }
+                </>
             ))
         }
-    </ul>
+    </div>
 </BaseLayout>

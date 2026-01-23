@@ -4,16 +4,26 @@ import Navigation from "./Navigation.astro";
 // import ThemeIcon from "./ThemeIcon.astro";
 ---
 
-<!-- 包含导航组件的Header，使得导航组件具有响应式能力 --><!-- <header class='site-header'>
-    <div class='container'>
-        <!-- <div class='logo'>
-            <a href='/'>Home</a>
-        </div> --><!-- <nav class='main-nav'>
-    <Navigation />
-</nav> --><!-- <ThemeIcon /> --><!-- <Hamburger /> --><!-- <button id='mobile-nav-toggle' class='mobile-nav-toggle'>☰</button>
-</header> -->
 <header class='site-header'>
+    <link
+        rel='stylesheet'
+        href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
+    />
+    <script
+        defer
+        src='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
+    ></script>
+    <script
+        defer
+        src='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js'
+        onload='renderMathInElement(document.body);'></script>
+
     <div class='container'>
+        <div class='site-branding'>
+            <a href='/' class='site-logo'>
+                <span>Paul's Blog</span>
+            </a>
+        </div>
         <button
             id='mobile-nav-toggle'
             class='mobile-nav-toggle'

@@ -102,13 +102,8 @@ if (encrypted && passwordKey) {
     /* --- 1. 整体布局 Grid --- */
     .post-layout-grid {
         display: grid;
-        /* 定义列：主内容区 (占据大部分空间) 和 侧边栏 (固定宽度) */
-        /* grid-template-columns: 1fr 280px; */
         grid-template-columns: 1fr;
-        /* gap: 3rem; 两栏之间的间距 */
         gap: 0;
-        /* align-items: start; */
-        /* --- 或者，使用这一行代码 --- */
         align-items: baseline;
 
         /* [关键修复 1] 必须加这三行！让这一层 Grid 也能正确收缩 */
@@ -119,35 +114,31 @@ if (encrypted && passwordKey) {
 
     /* --- 2. 文章头部样式 --- */
     .post-header {
-        /* 让头部横跨两栏 */
-        /* grid-column: 1 / -1; */
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 0rem;
     }
 
     .post-header h1 {
-        /* 继承全局 h1 样式，这里可以做微调 */
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 2rem;
     }
 
     .post-meta {
         display: flex;
         gap: 1.5rem;
         font-size: 0.9rem;
-        color: var(--secondary-text-color);
+        color: var(--text-secondary);
     }
 
     /* --- 3. 文章正文样式 --- */
     .post-content {
-        /* 正文区的样式，例如行高、段落间距等 */
         line-height: 1.8;
 
         /* [关键修复 2] 强制约束 Article 的宽度 */
-        /* 因为你用了 prose mx-auto，这里必须限制最大宽度为 100% */
         width: 100%;
         max-width: 100%;
-        min-width: 0; /* 再次强调：允许收缩 */
+        min-width: 0;
 
         /* 额外保险：防止 padding 撑爆 (虽然全局应该有了，但这里加更稳) */
         box-sizing: border-box;
@@ -175,46 +166,36 @@ if (encrypted && passwordKey) {
     }
 
     /* --- 4. 目录 (TOC) 样式 --- */
-    /* .post-toc {
-        /* 继承全局 .table-of-contents 的部分样式，但这里做定位 */
-    /* } */
-
     .post-toc {
         border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         padding: 1rem 1.5rem;
-        /* border-radius: 8px; 圆角 */
-        border-radius: 2px;
-        /* border-radius: 0; */
         margin-top: 2.5rem;
-        margin-bottom: 2.5rem; /* 与下方文章内容的间距 */
-        background-color: var(
-            --primary-fill-color
-        ); /* 可选：加个淡淡的背景色 */
+        margin-bottom: 2.5rem;
+        background-color: var(--bg-secondary);
     }
 
     /* 为 <summary> 添加一个鼠标指针样式，提示用户可以点击 */
     .post-toc summary {
         cursor: pointer;
-        /* 防止点击时出现浏览器默认的轮廓线 */
         outline: none;
     }
 
     /* 默认的展开/收起小三角可能不好看，可以自定义样式或隐藏它 */
     .post-toc summary::-webkit-details-marker {
-        /* display: none; */ /* 如果想完全隐藏，取消这行注释 */
+        /* display: none; */
     }
 
     .post-toc h3 {
-        /* 让 "目录" 标题和折叠三角在同一行显示 */
         display: inline-block;
         margin: 0;
     }
 
     .toc-wrapper {
-        /* position: sticky; */
-        /* top: 100px; 距离视口顶部 100px 开始固定 */
-        /* max-height: calc(100vh - 120px); */
-        /* overflow-y: auto; */
+        /* position: sticky;
+           top: 100px;
+           max-height: calc(100vh - 120px);
+           overflow-y: auto; */
     }
 
     .toc-wrapper h3 {
@@ -231,7 +212,7 @@ if (encrypted && passwordKey) {
 
     .toc-wrapper a {
         display: block;
-        color: var(--secondary-text-color);
+        color: var(--text-secondary);
         text-decoration: none;
         padding: 6px 0;
         font-size: 0.875rem;
@@ -241,8 +222,8 @@ if (encrypted && passwordKey) {
     }
 
     .toc-wrapper a:hover {
-        color: var(--primary-text-color);
-        background-color: var(--primary-fill-color);
+        color: var(--text-primary);
+        background-color: var(--bg-primary);
     }
 
     .toc-wrapper li.depth-3 a {
@@ -274,24 +255,23 @@ if (encrypted && passwordKey) {
         width: 100%;
         border-collapse: collapse;
         margin: 2.5rem 0;
-        /* font-size: 0.95rem; */
         border-radius: var(--border-radius);
         overflow: hidden;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        display: block; /* 某些极端情况下防止溢出，通常 table-layout: fixed 也行 */
-        overflow-x: auto; /* 允许表格在极小屏幕下横向滚动 */
+        display: block;
+        overflow-x: auto;
     }
 
     /* 2. 表头 (thead) 样式 */
     .post-content :global(thead tr) {
-        background-color: var(--c-bg-card);
+        background-color: var(--bg-secondary);
         border-bottom: 2px solid var(--border-color);
     }
 
     .post-content :global(th) {
         font-weight: 700;
         text-align: left;
-        color: var(--primary-text-color);
+        color: var(--text-primary);
     }
 
     /* 3. 单元格 (th 和 td) 通用样式 */
@@ -299,7 +279,7 @@ if (encrypted && passwordKey) {
     .post-content :global(td) {
         padding: 0.75rem 1rem;
         border: 1px solid var(--border-color);
-        word-break: break-word; /* 防止长单词撑破 */
+        word-break: break-word;
     }
 
     /* 可选：去掉最外层边框，看起来更干净 */
@@ -321,7 +301,7 @@ if (encrypted && passwordKey) {
 
     /* 4. 斑马纹 */
     .post-content :global(tbody tr:nth-child(even)) {
-        background-color: rgba(0, 0, 0, 0.02); /* 极淡的灰色 */
+        background-color: rgba(0, 0, 0, 0.02);
     }
 
     /* 5. 悬停效果 */
@@ -338,7 +318,7 @@ if (encrypted && passwordKey) {
     }
 
     :global(html.dark) .post-content :global(thead tr) {
-        background-color: var(--c-code-bg); /* 深色模式下表头深一点 */
+        background-color: var(--code-bg);
     }
 
     :global(html.dark) .post-content :global(tbody tr:nth-child(even)) {
@@ -354,32 +334,19 @@ if (encrypted && passwordKey) {
    ========================================================================== */
 
     .post-content :global(mark) {
-        /* 1. 圆角 (核心需求)：使用你全局定义的 4px 圆角 */
         border-radius: var(--border-radius);
-
-        /* 2. 内边距：让背景色向外扩一点，这样圆角才看得出来，也不会挤到文字 */
         padding: 0.1em 0.3em;
-        margin: 0 0.1em; /* 左右稍微留点白 */
-
-        /* 3. 背景色：
-       这里推荐使用柔和的“复古黄”，配合你的 Journal 风格。
-       不要用纯黄 (yellow)，太刺眼。
-    */
+        margin: 0 0.1em;
         background-color: rgba(255, 215, 0, 0.25);
-
-        /* 文字颜色保持继承，或者你可以强制设为深色 */
         color: inherit;
-
-        /* 4. 其它优化 */
         vertical-align: baseline;
-        -webkit-box-decoration-break: clone; /* 关键：如果高亮换行了，保证两行都有圆角 */
+        -webkit-box-decoration-break: clone;
         box-decoration-break: clone;
     }
 
     /* 深色模式适配 */
     :global(html.dark) .post-content :global(mark) {
-        /* 深色模式下，背景色需要更透明一点，或者稍微亮一点以便看清 */
         background-color: rgba(255, 215, 0, 0.15);
-        color: var(--primary-text-color);
+        color: var(--text-primary);
     }
 </style>

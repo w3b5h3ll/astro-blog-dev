@@ -8,83 +8,139 @@
 }
 
 /* ==========================================================================
-   1. Root & Variables (已根据 antfu.me 风格优化)
-   ========================================================================== */
-
-/* ==========================================================================
-   1. Root & Variables (已根据 beacox.space / Vitesse 风格优化)
-   ========================================================================== */
-
-/* ==========================================================================
-   1. Root & Variables (已根据截图精准还原：深冷午夜风)
+   1. Root & Variables (DoIt 主题风格)
    ========================================================================== */
 
 :root {
-    /* -- 浅色模式: 保持整洁明亮 -- */
-    --c-bg: #ffffff;
-    --c-bg-card: #f3f4f6;
-    --c-text-base: #1f2937;
-    --c-text-muted: #6b7280;
-    --c-accent: #3b82f6; /* 经典的蓝色强调 */
-    --c-border: #e5e7eb;
+    /* Primary Colors - Indigo Theme */
+    --primary-color: #4f46e5;
+    --primary-light: #6366f1;
+    --primary-dark: #4338ca;
 
-    --c-code-bg: #f9fafb;
-    --c-code-text-title: #4b5563;
-    --c-code-bg-title: #f3f4f6;
-    --c-code-text-number: #9ca3af;
-    --c-code-bg-highlight: rgba(59, 130, 246, 0.1);
+    /* Background Colors - Light Mode */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
 
-    --syntax-comment: #9ca3af;
-    --syntax-keyword: #2563eb;
-    --syntax-string: #059669;
-    --syntax-function: #7c3aed;
-    --syntax-number: #d97706;
-    --syntax-tag: #dc2626;
+    /* Text Colors - Light Mode */
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-muted: #868e96;
 
-    --border-radius: 6px;
+    /* Accent & Border */
+    --accent-color: var(--primary-color);
+    --border-color: var(--bg-tertiary);
+
+    /* Code Block Colors - Light Mode */
+    --code-bg: #f8f9fa;
+    --code-text-title: #495057;
+    --code-title-bg: #e9ecef;
+    --code-line-number-color: #adb5bd;
+    --code-line-highlight-bg: rgba(79, 70, 229, 0.1);
+
+    /* Inline Code - Light Mode */
+    --code-inline-bg: #e9ecef;
+    --code-inline-text: #c7254e;
+
+    /* Syntax Highlighting - Light Mode */
+    --syntax-comment: #999999;
+    --syntax-keyword: #e06c75;
+    --syntax-string: #98c379;
+    --syntax-function: #61afef;
+    --syntax-number: #d19a66;
+    --syntax-tag: #e06c75;
+    --syntax-operator: #56b6c2;
+    --syntax-class-name: #e5c07b;
+    --syntax-constant: #d19a66;
+    --syntax-parameter: #d19a66;
+
+    /* Typography */
+    --font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont,
+                             "Segoe UI", Roboto, "Helvetica Neue", Arial,
+                             "Noto Sans SC", sans-serif;
+    --font-family-monospace: "JetBrains Mono", "Fira Code", "SFMono-Regular",
+                             Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Layout */
+    --border-radius: 8px;
+    --header-height: 64px;
+    --container-max-width: 960px;
+    --sidebar-width: 320px;
+
+    /* Transitions */
+    --transition-duration: 0.3s;
+    --transition-timing: ease;
 }
 
 html.dark {
-    /* -- 深色模式: 根据截图提取的午夜蓝风格 -- */
-    --c-bg: #111827;        /* 截图背景：极深藏青色 */
-    --c-bg-card: #1f2937;   /* 稍微亮一点的灰色/蓝色用于卡片 */
-    --c-text-base: #f3f4f6; /* 近乎纯白的浅灰文字 */
-    --c-text-muted: #9ca3af;/* 辅助文字 */
-    --c-accent: #60a5fa;    /* 截图中的天蓝色强调色 */
-    --c-border: #374151;    /* 暗色边框 */
+    /* Background Colors - Dark Mode */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #404040;
 
-    /* -- 代码块 & 语法高亮: 匹配截图 -- */
-    --c-code-bg: #161b22;   /* 代码块背景色 */
-    --c-code-text-title: #9ca3af;
-    --c-code-bg-title: #0d1117;
-    --c-code-text-number: #4b5563;
-    --c-code-bg-highlight: rgba(96, 165, 250, 0.15); /* 蓝色高亮 */
+    /* Text Colors - Dark Mode */
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --text-muted: #718096;
 
-    --syntax-comment: #6b7280;
-    --syntax-keyword: #93c5fd; /* 浅蓝关键词 */
-    --syntax-string: #a5f3fc;  /* 青色字符串 */
-    --syntax-function: #60a5fa;
-    --syntax-number: #fbbf24;
-    --syntax-tag: #f87171;
+    /* Accent & Border - Dark Mode */
+    --accent-color: #818cf8;
+    --border-color: var(--bg-tertiary);
 
-    --c-code-inline-bg: #1e293b; /* 行内代码背景 */
-    --c-code-inline-text: #60a5fa; /* 行内代码蓝色文字 */
+    /* Code Block Colors - Dark Mode */
+    --code-bg: #282c34;
+    --code-text-title: #abb2bf;
+    --code-title-bg: #21252b;
+    --code-line-number-color: #4b5263;
+    --code-line-highlight-bg: rgba(99, 179, 237, 0.15);
+
+    /* Inline Code - Dark Mode */
+    --code-inline-bg: #2d2d2d;
+    --code-inline-text: #63b3ed;
+
+    /* Syntax Highlighting - Dark Mode */
+    --syntax-comment: #5c6370;
+    --syntax-keyword: #c678dd;
+    --syntax-string: #98c379;
+    --syntax-function: #61afef;
+    --syntax-number: #d19a66;
+    --syntax-tag: #e06c75;
+    --syntax-operator: #56b6c2;
+    --syntax-class-name: #e5c07b;
+    --syntax-constant: #d19a66;
+    --syntax-parameter: #d19a66;
 }
 
 /* 映射兼容层 (无需修改) */
 :root {
-    --primary-fill-color: var(--c-bg);
-    --secondary-fill-color: var(--c-bg-card);
-    --primary-text-color: var(--c-text-base);
-    --secondary-text-color: var(--c-text-muted);
-    --accent-color: var(--c-accent);
-    --border-color: var(--c-border);
-    --code-bg: var(--c-code-bg);
-    --code-title-text-color: var(--c-code-text-title);
-    --code-title-bg: var(--c-code-bg-title);
-    --code-border-color: var(--c-border);
-    --code-line-number-color: var(--c-code-text-number);
-    --code-line-highlight-bg: var(--c-code-bg-highlight);
+    --primary-fill-color: var(--bg-primary);
+    --secondary-fill-color: var(--bg-secondary);
+    --primary-text-color: var(--text-primary);
+    --secondary-text-color: var(--text-secondary);
+    --c-code-bg: var(--code-bg);
+    --code-title-text-color: var(--code-text-title);
+    --code-title-bg: var(--code-title-bg);
+    --code-border-color: var(--border-color);
+    --code-text-number: var(--code-line-number-color);
+    --code-bg-highlight: var(--code-line-highlight-bg);
+}
+
+/* Global Transitions */
+* {
+    transition:
+        color var(--transition-duration) var(--transition-timing),
+        background-color var(--transition-duration) var(--transition-timing),
+        border-color var(--transition-duration) var(--transition-timing);
+}
+
+/* Disable transitions for layout and dimension properties */
+*::before,
+*::after,
+img,
+video,
+pre,
+code {
+    transition: none;
 }
 
 /* ==========================================================================
@@ -92,20 +148,11 @@ html.dark {
    ========================================================================== */
 
 body {
-    background-color: var(--primary-fill-color);
-    color: var(--primary-text-color);
-    /* 推荐：使用 System UI 字体栈，速度更快，体验更原生 */
-    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
-    /* 原有字体，若想保留可取消下面的注释 */
-    /* font-family: "Open Sans Variable", sans-serif, "Noto Sans SC Variable",
-        sans-serif; */
-    font-family: "Roboto", sans-serif, "Noto Sans SC", sans-serif;
-    /* font-family: "Playfair Display", serif, "Noto Serif SC", serif, important; */
-    /* font-family: "Merriweather", serif, "Noto Serif SC", serif, important; */
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family-sans-serif);
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 0;
 
     overflow-wrap: break-word;
@@ -116,36 +163,37 @@ body {
 h1,
 h2,
 h3 {
-    /* 标题字体可以与正文保持一致，通过字重区分即可 */
     font-family: inherit;
     font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    color: var(--text-primary);
 }
 
 h1 {
-    font-size: 22px;
-    line-height: 1.2;
+    font-size: 2rem;
+    line-height: 1.25;
 }
 
 h2 {
-    font-size: 20px;
-    line-height: 1.3;
+    font-size: 1.5rem;
+    line-height: 1.4;
 }
 
 h3 {
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 1.25rem;
+    line-height: 1.5;
 }
 
 a {
     color: var(--accent-color);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 a:hover {
+    color: var(--primary-light);
     text-decoration: underline;
-    /* 推荐：悬停时颜色可以变得更亮一些以提供反馈 */
-    /* color: var(--c-accent-lighter); */ /* 需要在 :root 中定义一个更亮的强调色 */
 }
 
 /* ==========================================================================
@@ -153,7 +201,7 @@ a:hover {
    ========================================================================== */
 
 .page-wrapper {
-    max-width: 960px;
+    max-width: var(--container-max-width);
     margin: 40px auto;
     padding: 0 24px;
 }
@@ -168,21 +216,15 @@ a:hover {
 
 main {
     display: grid;
-    /* grid-template-columns: minmax(0, 1fr) min(840px, 100%) minmax(0, 1fr); */
     grid-template-columns: 1fr minmax(0, 840px) 1fr;
-
     max-width: 100vw;
-
     overflow-x: hidden;
 }
 
 main > .content-wrapper {
     grid-column: 2;
     padding: 64px 24px;
-
-    /*  */
     width: 100%;
-    /* 允许grid item收缩，防止被内部长内容撑大 */
     min-width: 0;
 }
 
@@ -195,54 +237,90 @@ main > .content-wrapper {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: var(--primary-fill-color);
-    /* 增加一个细微的边框，以在内容滚动时与页面区分开 */
-    /* border-bottom: 1px solid var(--border-color); */
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(8px);
 }
 
 .site-header .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: var(--header-height);
+}
+
+.site-branding {
+    flex-shrink: 0;
+}
+
+.site-logo {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.125rem;
+    transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.site-logo:hover {
+    color: var(--accent-color);
 }
 
 /* Main Navigation */
 .main-nav {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
+    align-items: center;
 }
 
 .main-nav a {
-    color: var(--primary-text-color);
-    font-weight: 600;
-    padding: 8px 0;
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition:
+        color var(--transition-duration) var(--transition-timing),
+        border-color var(--transition-duration) var(--transition-timing);
 }
 
 .main-nav a:hover {
     color: var(--accent-color);
     text-decoration: none;
+    border-bottom-color: var(--accent-color);
 }
 
-/* theme toggle inline with nav links */
+/* Theme toggle inline with nav links */
 .main-nav .theme-toggle {
     display: inline-flex;
     align-items: center;
-    padding: 8px 0;
+    padding: 0.5rem 0;
+    margin-left: 0.5rem;
 }
 
 .main-nav .theme-toggle button,
 .main-nav .theme-toggle [id="themeToggle"] {
-    padding: 4px;
-    border-radius: 4px;
+    padding: 0.5rem;
+    border-radius: 6px;
     color: inherit;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition:
+        background-color var(--transition-duration) var(--transition-timing),
+        border-color var(--transition-duration) var(--transition-timing),
+        color var(--transition-duration) var(--transition-timing);
+}
+
+.main-nav .theme-toggle button:hover,
+.main-nav .theme-toggle [id="themeToggle"]:hover {
+    background-color: var(--bg-secondary);
 }
 
 .main-nav .theme-toggle button:focus,
 .main-nav .theme-toggle [id="themeToggle"]:focus {
-    /* box-shadow: 0 0 0 3px rgba(72, 216, 146, 0.15); 使用新的强调色光晕 */
-    /* box-shadow: 0 0 0 3px rgba(0, 220, 130, 0.2); */
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* Mobile Navigation Toggle */
@@ -250,9 +328,19 @@ main > .content-wrapper {
     display: none;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
-    padding: 24px;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    border-radius: 6px;
+    transition:
+        color var(--transition-duration) var(--transition-timing),
+        background-color var(--transition-duration) var(--transition-timing);
+}
+
+.mobile-nav-toggle:hover {
+    color: var(--accent-color);
+    background-color: var(--bg-secondary);
 }
 
 /* Tags */
@@ -270,22 +358,23 @@ main > .content-wrapper {
 
 .tag-item {
     display: inline-block;
-    background-color: var(--primary-fill-color);
-    /* border: 1px solid var(--border-color); */
-    border: 1px solid var(--accent-color); /* 使用蓝色边框 */
-    color: var(--accent-color);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
     border-radius: var(--border-radius);
-    /* color: var(--secondary-text-color); */
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition:
+        all var(--transition-duration) var(--transition-timing);
 }
 
 .tag-item:hover {
     background-color: var(--accent-color);
-    color: #ffffff; /* 在深色背景上，白色文字对比度更好 */
+    color: #ffffff;
     border-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 /* Table of Contents */
@@ -295,7 +384,7 @@ main > .content-wrapper {
     max-height: calc(100vh - 128px);
     overflow-y: auto;
     font-size: 0.875rem;
-    color: var(--secondary-text-color);
+    color: var(--text-secondary);
 }
 
 .table-of-contents ul {
@@ -306,32 +395,37 @@ main > .content-wrapper {
 
 .table-of-contents a {
     display: block;
-    padding: 4px 16px;
+    padding: 0.25rem 1rem;
     border-left: 2px solid transparent;
-    transition: all 0.2s ease;
+    transition:
+        all var(--transition-duration) var(--transition-timing);
 }
 
 .table-of-contents a:hover {
-    color: var(--primary-text-color);
-    padding-left: 20px;
+    color: var(--text-primary);
+    padding-left: 1.25rem;
     text-decoration: none;
+    border-left-color: var(--accent-color);
 }
 
 .table-of-contents a.active {
     color: var(--accent-color);
     border-left-color: var(--accent-color);
+    font-weight: 600;
 }
 
 /* Footer */
 .site-footer {
-    padding: 32px 0;
-    /* border-top: 1px solid var(--border-color); 增加页脚分割线 */
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .site-footer p {
     text-align: center;
     font-size: 0.875rem;
-    color: var(--secondary-text-color);
+    color: var(--text-secondary);
+    margin: 0;
 }
 
 /* Hero Background */
@@ -363,40 +457,45 @@ main > .content-wrapper {
 
 .posts-list {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .post-preview-card {
-    background-color: var(--secondary-fill-color);
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    padding: 1.5rem;
+    transition:
+        transform var(--transition-duration) var(--transition-timing),
+        box-shadow var(--transition-duration) var(--transition-timing);
 }
 
 .post-preview-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 html.dark .post-preview-card:hover {
-    border-color: var(--c-border);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: var(--border-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .card-title {
     margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 22px;
-    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
 .card-title a {
-    color: var(--primary-text-color);
+    color: var(--text-primary);
     text-decoration: none;
+    transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .card-title a:hover {
-    text-decoration: underline;
+    color: var(--accent-color);
 }
 
 .card-meta {
@@ -405,11 +504,11 @@ html.dark .post-preview-card:hover {
     align-items: center;
     gap: 1rem;
     font-size: 0.875rem;
-    color: var(--secondary-text-color);
+    color: var(--text-secondary);
 }
 
 .card-authors span {
-    margin-left: 0.75rem;
+    margin-left: 0.5rem;
 }
 
 .card-date {
@@ -444,38 +543,37 @@ html.dark .post-preview-card:hover {
 
 [data-rehype-pretty-code-figure] {
     margin: 1.5rem 0;
-    background-color: var(--code-bg); /* 将背景色移到 figure 上 */
-    border: 1px solid var(--code-border-color);
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-
     max-width: 100%;
+    overflow: hidden;
 }
 
 pre {
-    /* 移除 pre 上的独立背景和边框，由父元素 figure 控制 */
     background-color: transparent;
     border: none;
-    padding: 1rem;
-    /* 滚动条 */
+    padding: 1.25rem;
     overflow-x: auto;
     margin: 0;
-
     max-width: 100%;
+    font-family: var(--font-family-monospace);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 [data-rehype-pretty-code-title] {
     padding: 0.75rem 1rem;
-    font-family: sans-serif;
+    font-family: var(--font-family-sans-serif);
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--code-title-text-color);
     background-color: var(--code-title-bg);
-    border-bottom: 1px solid var(--code-border-color); /* 标题和代码区之间的分割线 */
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* 移除 figure 上的边框，因为标题已经有了 */
 [data-rehype-pretty-code-title] + pre {
-    padding-top: 0.75rem;
+    padding-top: 1rem;
 }
 
 pre[data-show-line-numbers] {
@@ -484,7 +582,7 @@ pre[data-show-line-numbers] {
 
 pre .line {
     display: block;
-    min-height: 1.5em;
+    min-height: 1.6em;
 }
 
 pre[data-show-line-numbers] .line::before {
@@ -500,19 +598,18 @@ pre[data-show-line-numbers] .line::before {
 
 pre .line[data-highlighted-line] {
     background-color: var(--code-line-highlight-bg);
-    margin-inline: -1rem;
-    padding-inline: 1rem;
+    margin-inline: -1.25rem;
+    padding-inline: 1.25rem;
 }
 
 code {
-    font-family: "Fira Mono", monospace, "Noto Sans SC Variable", sans-serif;
+    font-family: var(--font-family-monospace);
     font-size: 14px;
     border-radius: var(--border-radius);
-
     tab-size: 4;
 }
 
-/* 语法高亮 (由 :root 和 html.dark 中的变量控制) */
+/* Syntax Highlighting */
 code .token.comment,
 code .token.prolog,
 code .token.doctype,
@@ -537,15 +634,24 @@ code .token.tag,
 code .token.class-name {
     color: var(--syntax-tag);
 }
+code .token.operator {
+    color: var(--syntax-operator);
+}
+code .token.punctuation {
+    color: var(--text-secondary);
+}
+code .token.parameter {
+    color: var(--syntax-parameter);
+}
 
-/* 行内代码块样式 */
+/* Inline code styles */
 :not(pre) > code {
-    /* [修复] 使用新的行内代码变量，确保在任何背景下都可见 */
-    background-color: var(--c-code-inline-bg);
-    color: var(--c-code-inline-text);
+    background-color: var(--code-inline-bg);
+    color: var(--code-inline-text);
     padding: 0.2em 0.4em;
     font-size: 0.9em;
-    border: 1px solid var(--c-border); /* 使用我们调亮后的主边框 */
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
 }
 
 /* ==========================================================================
@@ -555,59 +661,66 @@ code .token.class-name {
 @media (max-width: 768px) {
     /* 导航容器样式 */
     .site-header .container {
-        justify-content: space-between;
-        padding: 0 0rem;
+        padding: 0 1rem;
     }
 
     /* 汉堡菜单按钮样式 */
     .mobile-nav-toggle {
-        display: block;
+        display: flex;
         background: transparent;
         border: 0;
-        height: 64px; /* 与 header 容器等高 */
-        padding: 0 0rem;
-        color: var(--primary-text-color);
-        font-size: 1.25rem; /* 稍微调小一点图标尺寸 */
+        height: var(--header-height);
+        padding: 0 1rem;
+        color: var(--text-primary);
+        font-size: 1.25rem;
         cursor: pointer;
-        display: flex;
-        align-items: center; /* 垂直居中 */
-        transition: color 0.2s ease; /* 添加颜色过渡效果 */
+        align-items: center;
     }
 
     .mobile-nav-toggle:hover {
         color: var(--accent-color);
+        background-color: var(--bg-secondary);
     }
 
     /* 导航菜单样式 */
     .main-nav {
         display: none;
         position: absolute;
-        top: 64px;
+        top: var(--header-height);
         left: 0;
         right: 0;
-        background: var(--primary-fill-color);
-        padding: 0rem;
+        background: var(--bg-primary);
+        padding: 1rem;
         border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     /* 展开时的导航样式 */
     .main-nav.is-open {
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        /* gap: 0; */
     }
 
     /* 导航链接样式 */
     .main-nav a {
         display: block;
-        padding: 0rem 0;
+        padding: 0.75rem 0;
+        border-bottom: none;
     }
 
     /* 暗色模式切换按钮位置调整 */
     .main-nav .theme-toggle {
         margin-left: 0;
         margin-top: 0.5rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border-color);
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .main-nav .theme-toggle button,
+    .main-nav .theme-toggle [id="themeToggle"] {
+        padding: 0.5rem;
     }
 }
 
@@ -626,10 +739,11 @@ code .token.class-name {
 
 .post-content blockquote {
     margin: 1.5em 0;
-    padding-left: 1.5em;
-    border-left: 3px solid var(--border-color);
-    color: var(--secondary-text-color);
-    font-style: italic;
+    padding: 1em 1.5em;
+    border-left: 4px solid var(--accent-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 .post-content blockquote p {
@@ -650,87 +764,79 @@ code .token.class-name {
 
 /* 密码框主容器 */
 .password-prompt {
-    /* 使用卡片背景和边框，使其与正文区分开 */
-    background-color: var(--secondary-fill-color); /* --c-bg-card */
+    background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    /* 使用强调色作为左边框，使其看起来像一个 "提示" 块 */
     border-left: 4px solid var(--accent-color);
     padding: 1.5rem;
     border-radius: var(--border-radius);
-    margin: 1.5rem 0; /* 与其他内容块（如代码块）保持一致的外边距 */
+    margin: 1.5rem 0;
 }
 
 /* 提示文字 (例如 "请输入密码...") */
 .password-prompt .prompt-text {
     margin-top: 0;
-    color: var(--secondary-text-color); /* --c-text-muted */
-    font-style: italic; /* 模仿你的 blockquote 样式 */
-    margin-bottom: 1rem; /* 与下面的表单拉开距离 */
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1rem;
 }
 
 /* 表单容器 */
 .password-prompt form {
     display: flex;
-    flex-wrap: wrap; /* 在小屏幕上允许换行 */
-    gap: 0.5rem; /* 输入框和按钮之间的间距 */
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 /* 密码输入框 */
 .password-prompt input[type="password"] {
-    flex-grow: 1; /* 占据尽可能多的空间 */
-    flex-basis: 200px; /* 最小宽度 */
-
-    /* 基础样式 */
+    flex-grow: 1;
+    flex-basis: 200px;
     padding: 0.5rem 0.75rem;
     font-family: inherit;
     font-size: 1rem;
-
-    /* 颜色 (来自你的变量) */
-    color: var(--primary-text-color);
-    background-color: var(--primary-fill-color); /* 使用主背景色 */
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        border-color var(--transition-duration) var(--transition-timing),
+        box-shadow var(--transition-duration) var(--transition-timing);
 }
 
 /* 输入框获取焦点时的样式 */
 .password-prompt input[type="password"]:focus {
     outline: none;
     border-color: var(--accent-color);
-    /* 模仿你 .theme-toggle 的 focus 样式 */
-    /* box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.15); 红色光晕 */
-    /* box-shadow: 0 0 0 3px rgba(0, 220, 130, 0.2); */
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* 解锁按钮 */
 .password-prompt button {
     padding: 0.5rem 1.25rem;
     font-family: inherit;
-    font-weight: 600; /* 匹配你 .main-nav a 的字重 */
+    font-weight: 600;
     font-size: 1rem;
-
-    /* 颜色 (使用你的强调色) */
-    color: #ffffff; /* 亮色文字 */
+    color: #ffffff;
     background-color: var(--accent-color);
     border: 1px solid var(--accent-color);
-
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition:
+        opacity var(--transition-duration) var(--transition-timing),
+        transform var(--transition-duration) var(--transition-timing);
 }
 
 /* 按钮悬停效果 */
 .password-prompt button:hover {
-    opacity: 0.85;
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 /* 错误消息 */
 .password-prompt .error-message {
-    color: var(--accent-color); /* 使用强调色来显示错误 */
+    color: var(--accent-color);
     font-size: 0.9rem;
-    font-style: normal; /* 覆盖父级的 italic */
+    font-style: normal;
     margin-top: 0.75rem;
     margin-bottom: 0;
 }
@@ -740,4 +846,86 @@ video,
 pre,
 code {
     max-width: 100%;
+}
+
+/* Blog Post List Style for blog.astro */
+.posts-list > li {
+    list-style: none;
+}
+
+/* Simple Posts List - Clean minimalist style like evilpan.com */
+.simple-posts-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.simple-posts-list > li {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+/* Archive item style matching evilpan.com */
+.group-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.group-title:first-child {
+    margin-top: 0;
+}
+
+.archive-item {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.archive-item-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.archive-item-link:hover {
+    color: var(--accent-color);
+}
+
+.archive-item-date {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Add card styles for BlogPost component */
+.card-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.card-meta a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.card-meta a:hover {
+    color: var(--accent-color);
+}
+
+.card-date {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    white-space: nowrap;
 }

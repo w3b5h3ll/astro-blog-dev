@@ -7,6 +7,8 @@ import react from "@astrojs/react";
 import rehypePrettyCode from "rehype-pretty-code";
 
 import vercel from "@astrojs/vercel";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const prettyCodeOptions = {
     // themes: {
@@ -33,7 +35,8 @@ export default defineConfig({
     markdown: {
         // syntaxHighlight: "shiki",
         syntaxHighlight: false,
-        rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+        rehypePlugins: [[rehypePrettyCode, prettyCodeOptions], rehypeKatex],
+        remarkPlugins: [remarkMath],
         // shikiConfig: {
         //     themes: {
         //         light: "everforest-dark",

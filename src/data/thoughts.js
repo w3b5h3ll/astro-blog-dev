@@ -5,6 +5,10 @@
 
 export default [
     {
+        date: "2026-01-07",
+        content: "GUI Agent体验太差了，点击功能花费的推理时间好长"
+    },
+    {
         date: "2025-12-16T15:23:00",
         content: "关闭VS Code复制高亮，避免引入空行：editor.copyWithSyntaxHighlighting"
     },
