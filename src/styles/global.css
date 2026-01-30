@@ -55,11 +55,12 @@
     --syntax-parameter: #d19a66;
 
     /* Typography */
-    --font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont,
-                             "Segoe UI", Roboto, "Helvetica Neue", Arial,
-                             "Noto Sans SC", sans-serif;
-    --font-family-monospace: "JetBrains Mono", "Fira Code", "SFMono-Regular",
-                             Consolas, "Liberation Mono", Menlo, monospace;
+    --font-family-sans-serif:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    --font-family-monospace:
+        "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas,
+        "Liberation Mono", Menlo, monospace;
 
     /* Layout */
     --border-radius: 8px;
@@ -298,6 +299,12 @@ main > .content-wrapper {
     margin-left: 0.5rem;
 }
 
+/* @media (max-width: 768px) {
+  .main-nav .theme-toggle {
+    justify-content: center;
+  }
+} */
+
 .main-nav .theme-toggle button,
 .main-nav .theme-toggle [id="themeToggle"] {
     padding: 0.5rem;
@@ -366,8 +373,7 @@ main > .content-wrapper {
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
-    transition:
-        all var(--transition-duration) var(--transition-timing);
+    transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .tag-item:hover {
@@ -397,8 +403,7 @@ main > .content-wrapper {
     display: block;
     padding: 0.25rem 1rem;
     border-left: 2px solid transparent;
-    transition:
-        all var(--transition-duration) var(--transition-timing);
+    transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .table-of-contents a:hover {
@@ -711,9 +716,9 @@ code .token.parameter {
     /* 暗色模式切换按钮位置调整 */
     .main-nav .theme-toggle {
         margin-left: 0;
-        margin-top: 0.5rem;
-        padding-top: 0.75rem;
-        border-top: 1px solid var(--border-color);
+        margin-top: 0;
+        padding-top: 0;
+        /* border-top: 1px solid var(--border-color); */
         width: 100%;
         justify-content: flex-start;
     }
@@ -721,6 +726,10 @@ code .token.parameter {
     .main-nav .theme-toggle button,
     .main-nav .theme-toggle [id="themeToggle"] {
         padding: 0.5rem;
+    }
+
+    .main-nav .theme-toggle {
+        justify-content: center;
     }
 }
 
