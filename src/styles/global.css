@@ -126,8 +126,17 @@ html.dark {
     --code-bg-highlight: var(--code-line-highlight-bg);
 }
 
-/* Global Transitions */
-* {
+/* 优化：仅对需要过渡的元素应用 transition，避免全局性能损耗 */
+a,
+button,
+.theme-toggle-btn,
+.tag-item,
+.post-preview-card,
+.card-title a,
+.main-nav a,
+.site-logo,
+.mobile-nav-toggle,
+.toc-wrapper a {
     transition:
         color var(--transition-duration) var(--transition-timing),
         background-color var(--transition-duration) var(--transition-timing),

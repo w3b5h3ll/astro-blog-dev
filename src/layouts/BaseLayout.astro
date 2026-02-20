@@ -6,6 +6,10 @@ import Footer from "../components/Footer.astro";
 
 import "../styles/global.css";
 import BackToTop from "../components/BackToTop.astro";
+
+// 导入本地字体，替代 Google Fonts CDN
+import '@fontsource-variable/noto-sans-sc';
+import '@fontsource/fira-mono';
 ---
 
 <html lang='en'>
@@ -21,15 +25,13 @@ import BackToTop from "../components/BackToTop.astro";
 
         <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 
-        <link
-            rel='stylesheet'
-            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'
-        />
-        <meta name='viewport' content='width=device-width' /><meta
-            name='generator'
-            content={Astro.generator}
-        /><title>Paul's Blog</title></head
-    >
+        <meta name='viewport' content='width=device-width' />
+        <meta name='generator' content={Astro.generator} />
+        <title>Paul's Blog</title>
+
+        <!-- 允许子布局注入额外的 head 内容 -->
+        <slot name="head" />
+    </head>
 </html>
 <body>
     <div class='page-wrapper'>

@@ -5,18 +5,8 @@ import Navigation from "./Navigation.astro";
 ---
 
 <header class='site-header'>
-    <link
-        rel='stylesheet'
-        href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
-    />
-    <script
-        defer
-        src='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
-    ></script>
-    <script
-        defer
-        src='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js'
-        onload='renderMathInElement(document.body);'></script>
+    <!-- KaTeX 资源优化：仅在文章页面加载 -->
+    <!-- 移至 MarkdownPostLayout.astro 以按需加载 -->
 
     <div class='container'>
         <div class='site-branding'>

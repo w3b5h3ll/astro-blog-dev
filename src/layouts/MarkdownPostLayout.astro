@@ -44,6 +44,25 @@ if (encrypted && passwordKey) {
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
+    <!-- KaTeX 资源 - 优化加载 -->
+    <link
+        slot="head"
+        rel='preload'
+        href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
+        as='style'
+    />
+    <link
+        slot="head"
+        rel='stylesheet'
+        href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
+    />
+    <link
+        slot="head"
+        rel='preload'
+        href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
+        as='script'
+    />
+
     <div class='post-layout-grid'>
         <header class='post-header'>
             <h1>{frontmatter.title}</h1>
@@ -86,7 +105,7 @@ if (encrypted && passwordKey) {
             {
                 encrypted && encryptedContent && correctPassword ? (
                     <PasswordPrompt
-                        client:only='react'
+                        client:idle
                         encryptedContent={encryptedContent}
                         correctPassword={correctPassword}
                     />
