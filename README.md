@@ -1,6 +1,6 @@
 # A simple blog powered by 「Astro」.
 
-A minimal Astro blog starter.
+A minimal Astro blog starter. Faster && Simple!
 
 ## 🙏
 
