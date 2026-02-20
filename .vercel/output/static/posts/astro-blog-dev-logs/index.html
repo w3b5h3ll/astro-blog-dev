@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="alternate" type="application/rss+xml" title="Paul's Blog | Powered by Astro" href="https://paulwang.vercel.app/rss.xml"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.14.1"><title>Paul's Blog</title><!-- 允许子布局注入额外的 head 内容 --><link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" as="style"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" as="script"><link rel="stylesheet" href="/_astro/_slug_.BsYvngTm.css">
+<link rel="stylesheet" href="/_astro/_slug_.DtFYsS4A.css"><script type="module" src="/_astro/page.DTIbhfSr.js"></script></head>  <div class="page-wrapper"> <!-- <Navigation /> --> <header class="site-header"> <!-- KaTeX 资源优化：仅在文章页面加载 --> <!-- 移至 MarkdownPostLayout.astro 以按需加载 --> <div class="container"> <div class="site-branding"> <a href="/" class="site-logo"> <span>Paul's Blog</span> </a> </div> <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+☰
+</button> <nav class="main-nav"> <a href="/">Home</a> <a href="/blog">Blog</a> <a href="/tags">Tags</a> <a href="/thoughts">Thoughts</a> <a href="/about">About</a> <span class="theme-toggle"><button class="theme-toggle-btn" type="button" aria-label="切换暗色/浅色模式" data-astro-cid-oemx5le4> <div class="taichi" data-astro-cid-oemx5le4></div> </button>  <script type="module">function a(){const t=()=>{const e=document.documentElement;e.classList.toggle("dark");const o=e.classList.contains("dark");localStorage.setItem("theme",o?"dark":"light"),document.querySelectorAll(".theme-toggle-btn").forEach(l=>{l.setAttribute("aria-pressed",o?"true":"false")})};document.querySelectorAll(".theme-toggle-btn").forEach(e=>{e.removeEventListener("click",t),e.addEventListener("click",t),e.setAttribute("aria-pressed",document.documentElement.classList.contains("dark")?"true":"false")})}a();document.addEventListener("astro:page-load",a);const n=typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";n==="light"?document.documentElement.classList.remove("dark"):document.documentElement.classList.add("dark");window.localStorage.setItem("theme",n);</script></span> </nav> </div> </header> <!-- <h1>Astro</h1> -->      <div class="post-layout-grid" data-astro-cid-5grsw2hi> <header class="post-header" data-astro-cid-5grsw2hi> <h1 data-astro-cid-5grsw2hi>Astro Blog Dev Logs</h1> <div class="post-meta" data-astro-cid-5grsw2hi> <span data-astro-cid-5grsw2hi>Author: Paul</span> <time datetime="2025-10-05T00:00:00.000Z" data-astro-cid-5grsw2hi>Publish: October 5, 2025</time> </div> </header>  <aside class="post-toc" data-astro-cid-5grsw2hi> <div class="toc-wrapper" data-astro-cid-5grsw2hi>   <details open data-astro-cid-5grsw2hi> <summary data-astro-cid-5grsw2hi> <h3 data-astro-cid-5grsw2hi>目录</h3> </summary> <ul data-astro-cid-5grsw2hi> <li class="depth-2" data-astro-cid-5grsw2hi> <a href="#前言" data-astro-cid-5grsw2hi> 前言 </a> </li><li class="depth-2" data-astro-cid-5grsw2hi> <a href="#dev" data-astro-cid-5grsw2hi> Dev </a> </li><li class="depth-3" data-astro-cid-5grsw2hi> <a href="#astro-特性" data-astro-cid-5grsw2hi> Astro 特性 </a> </li><li class="depth-2" data-astro-cid-5grsw2hi> <a href="#deploy" data-astro-cid-5grsw2hi> Deploy </a> </li><li class="depth-3" data-astro-cid-5grsw2hi> <a href="#cloudflare" data-astro-cid-5grsw2hi> CLOUDFLARE </a> </li><li class="depth-2" data-astro-cid-5grsw2hi> <a href="#优化" data-astro-cid-5grsw2hi> 优化 </a> </li> </ul> </details> </div> </aside> <article class="post-content prose prose-slate dark:prose-invert mx-auto p-4" data-astro-cid-5grsw2hi>  <h2 id="前言">前言</h2>
+<p>国庆前的某天，在 b 站刷到了有关 <code>Astro</code> 框架的视频，于是内心有了一点念头。一方面是去了解一下前端相关的技术，另外是去重构一下我的 Blog 站点。在此之前，曾去了解了相当多的前端框架：Hexo/Hugo/React/Next. js/Gatsby 等，也算了对这个玩具的一个收尾吧。</p>
+<h2 id="dev">Dev</h2>
+<p>花了大概 3 天时间，借助 <code>AIGC</code>，结果十分出乎我的意料，完成了基于 Astro 框架的 Blog。有关 SSG 相关的框架架构上大体相同。分为如下几个部分</p>
+<ul>
+<li>Components</li>
+<li>Layout</li>
+<li>Style</li>
+<li>Pages</li>
+<li>Scripts</li>
+<li>…</li>
+</ul>
+<p>只需掌握基本的 <code>html/css/js</code> 基础，便可开始上手进行开发。利用 <code>Componetns</code> 去搭建 <code>Layout</code>，而不同的 <code>Pages</code> 又使用了不同的 <code>Layout</code>，最后借助 <code>Style</code> 进行样式调整，<code>Scripts</code> 进行动态内容添加与交互，便完成了一个最小的站点。</p>
+<h3 id="astro-特性">Astro 特性</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> 项目分析说明 📅 2025-10-17</li>
+</ul>
+<p>…</p>
+<h2 id="deploy">Deploy</h2>
+<p>Astro 对于 Vercel 的支持相当不错，开发完成之后，push 到 github，vercel 拉取相关的 repo 内容进行构建即可完成。</p>
+<p>Demo 地址：<a href="https://paulwang.vercel.app/">https://paulwang.vercel.app/</a></p>
+<h3 id="cloudflare"><del>CLOUDFLARE</del></h3>
+<p><img  loading="lazy" decoding="async" fetchpriority="auto" width="1186" height="865" src="/_astro/astro-20251006.N6dgosxW_Z14dvVA.webp" ></p>
+<p>使用 Free 版本即可添加基本保护与性能提升
+<img  loading="lazy" decoding="async" fetchpriority="auto" width="1277" height="906" src="/_astro/astro-20251006-1.BsoLhqhP_Z15ze8E.webp" ></p>
+<h2 id="优化">优化</h2>
+<p>项目仍然存在不少可以优化的地方以及一些 feature 的增加</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<p><input type="checkbox" checked disabled> Dark mode 📅 2025-10-24 ✅ 2025-10-21</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" checked disabled> Encrypt article 🔽 📅 2025-10-24 ✅ 2025-11-09</p>
+</li>
+<li>
+<p>环境变量问题：Astro 使用 <code>PUBLIC_</code> 前缀环境变量</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> 搜索</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" checked disabled> Cloudflare ✅ 2025-10-06</p>
+<ul>
+<li>由于使用了 Vercel 提供的域名，Cloudflare 无法使用</li>
+</ul>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" checked disabled> RSS ✅ 2025-10-23</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" disabled> …</p>
+</li>
+</ul>  </article> </div>  <footer class="site-footer"> <div class="container"> <p>
+&copy; 2024 - <span id="current-year"></span> | Inspired by
+<strong><a href="https://astro.build/" class="about-link">Astro</a></strong> & <strong><a href="https://claude.com/claude-code" class="about-link">Claude Code</a></strong> & <strong><a href="https://github.com/HEIGE-PCloud/DoIt" class="about-link">Dolt</a></strong> </p> </div> </footer> <button id="back-to-top" aria-label="回到顶部" class="back-to-top" data-astro-cid-wlspcwf4> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wlspcwf4> <path d="M18 15l-6-6-6 6" data-astro-cid-wlspcwf4></path> </svg> </button>  <script type="module">function i(){const o=document.getElementById("back-to-top");if(!o)return;o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})});const t=()=>{window.scrollY>300?o.classList.add("is-visible"):o.classList.remove("is-visible")};window.addEventListener("scroll",t),t()}i();document.addEventListener("astro:page-load",i);</script> <script type="module">document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("mobile-nav-toggle"),n=document.querySelector(".main-nav");e&&n&&e.addEventListener("click",()=>{n.classList.toggle("is-open");const i=n.classList.contains("is-open");e.setAttribute("aria-expanded",String(i))})});var c="@vercel/analytics",s="1.5.0",u=()=>{window.va||(window.va=function(...n){(window.vaq=window.vaq||[]).push(n)})};function r(){return typeof window<"u"}function o(){try{const e="production"}catch{}return"production"}function l(e="auto"){if(e==="auto"){window.vam=o();return}window.vam=e}function f(){return(r()?window.vam:o())||"production"}function a(){return f()==="development"}function v(e){return e.scriptSrc?e.scriptSrc:a()?"https://va.vercel-scripts.com/v1/script.debug.js":e.basePath?`${e.basePath}/insights/script.js`:"/_vercel/insights/script.js"}function m(e={debug:!0}){var n;if(!r())return;l(e.mode),u(),e.beforeSend&&((n=window.va)==null||n.call(window,"beforeSend",e.beforeSend));const i=v(e);if(document.head.querySelector(`script[src*="${i}"]`))return;const t=document.createElement("script");t.src=i,t.defer=!0,t.dataset.sdkn=c+(e.framework?`/${e.framework}`:""),t.dataset.sdkv=s,e.disableAutoTrack&&(t.dataset.disableAutoTrack="1"),e.endpoint?t.dataset.endpoint=e.endpoint:e.basePath&&(t.dataset.endpoint=`${e.basePath}/insights`),e.dsn&&(t.dataset.dsn=e.dsn),t.onerror=()=>{const d=a()?"Please check if any ad blockers are enabled and try again.":"Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information.";console.log(`[Vercel Web Analytics] Failed to load script from ${i}. ${d}`)},a()&&e.debug===!1&&(t.dataset.debug="false"),document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("current-year");e&&(e.textContent=String(new Date().getFullYear()))});m();</script> </div> </html> 
