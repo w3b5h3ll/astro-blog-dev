@@ -26,6 +26,9 @@ importers:
       '@fontsource/fira-mono':
         specifier: ^5.2.7
         version: 5.2.7
+      '@fortawesome/fontawesome-free':
+        specifier: ^7.2.0
+        version: 7.2.0
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19
@@ -387,6 +390,10 @@ packages:
 
   '@fontsource/fira-mono@5.2.7':
     resolution: {integrity: sha512-wYrAn6i3nH6luqQBZxtWUpl4UTUvs9AEbEeZxksPMwIqyjRRaxHTNW3c2VfM50gabS2IS7pT8lVWS2USB4ukYA==}
+
+  '@fortawesome/fontawesome-free@7.2.0':
+    resolution: {integrity: sha512-3DguDv/oUE+7vjMeTSOjCSG+KeawgVQOHrKRnvUuqYh1mfArrh7s+s8hXW3e4RerBA1+Wh+hBqf8sJNpqNrBWg==}
+    engines: {node: '>=6'}
 
   '@img/colour@1.0.0':
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -2540,6 +2547,8 @@ snapshots:
   '@fontsource-variable/open-sans@5.2.7': {}
 
   '@fontsource/fira-mono@5.2.7': {}
+
+  '@fortawesome/fontawesome-free@7.2.0': {}
 
   '@img/colour@1.0.0': {}
 
