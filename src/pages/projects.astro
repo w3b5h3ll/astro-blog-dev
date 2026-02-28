@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import projectsData from "../data/projects.js";
+
+const pageTitle = "Projects";
+const projects = [...projectsData].sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <h1>Projects</h1>
+    <hr class='astro-hr' />
+
+    <div class='projects-list'>
+        {
+            projects.map((project) => (
+                <article class='project-card'>
+                    <h3 class='project-title'>{project.name}</h3>
+                    <p class='project-description'>{project.description}</p>
+
+                    <div class='project-meta'>
+                        <time datetime={project.date}>{project.date}</time>
+                        <span>·</span>
+                        <span>{project.techStack.join(" / ")}</span>
+                    </div>
+
+                    <div class='project-links'>
+                        <a
+                            href={project.github}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            class='project-link'
+                        >
+                            GitHub
+                        </a>
+                        {
+                            project.downloadUrl && (
+                                <a
+                                    href={project.downloadUrl}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                    class='project-link'
+                                >
+                                    Download
+                                </a>
+                            )
+                        }
+                    </div>
+                </article>
+            ))
+        }
+    </div>
+</BaseLayout>
+
+<style>
+    .projects-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .project-card {
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1rem 1.25rem;
+        background: var(--bg-primary);
+    }
+
+    .project-title {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .project-description {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        color: var(--text-secondary);
+    }
+
+    .project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    .project-links {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .project-link {
+        font-weight: 600;
+    }
+</style>
